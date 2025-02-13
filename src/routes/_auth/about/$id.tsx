@@ -1,14 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
-import * as React from 'react'
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_auth/about/$id')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { id } = Route.useParams()
   return (
-    <div className=" btn">
-      home page
+    <div>
+      Hello "/about/[id]"!
+      { id }
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import * as React from 'react'
 import { useCountStore } from '~/store'
 
-export const Route = createLazyFileRoute('/store')({
+export const Route = createLazyFileRoute('/_auth/store')({
   component: RouteComponent,
 })
 
@@ -12,7 +12,7 @@ function RouteComponent() {
   return (
     <div>
       <span>
-        countValue:
+        countValue
         {' '}
         {count}
       </span>

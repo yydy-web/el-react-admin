@@ -1,4 +1,4 @@
-import type { ILoginUserParams, LoginRes } from '~/api'
+import type { LoginParams, LoginRes } from '~/api'
 import { omit } from 'lodash-es'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
@@ -11,7 +11,7 @@ interface States {
 }
 
 interface Actions {
-  loginUser: (params: ILoginUserParams) => Promise<void>
+  loginUser: (params: LoginParams) => Promise<void>
   infoUser: () => Promise<void>
   logoutUser: () => void
   setUser: (info: Required<States>['userInfo']) => void
@@ -26,7 +26,7 @@ function initAuthStore() {
 export const useAuthStore = create<States & Actions>()(
   immer(set => ({
     ...initAuthStore(),
-    loginUser: async (params: ILoginUserParams) => {
+    loginUser: async (params: LoginParams) => {
       const res = await loginUser(params)
       const cacheStore = useCacheStore.getState()
       set((state) => {

@@ -1,7 +1,10 @@
-import type { ILoginUserParams } from '~/api'
+import type { LoginParams } from '~/api'
+import { Button, Center, TextInput } from '@mantine/core'
+import { useForm, zodResolver } from '@mantine/form'
 import { useMutation } from '@tanstack/react-query'
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import { z } from 'zod'
+import { loginParamsSchema } from '~/api'
 import { useAuthStore } from '~/store'
 
 export const Route = createFileRoute('/login')({
@@ -22,41 +25,47 @@ function RouteComponent() {
   const router = useRouter()
   const navigate = Route.useNavigate()
   const search = Route.useSearch()
+  const form = useForm<LoginParams>({
+    initialValues: {
+      username: 'emilys',
+      password: 'emilyspass',
+    },
+    validate: zodResolver(loginParamsSchema),
+  })
 
   const action = useMutation({
     mutationKey: ['login'],
-    mutationFn: (params: ILoginUserParams) => auth.loginUser({ ...params, username: 'emilys', password: 'emilyspass' }),
+    mutationFn: (params: LoginParams) => auth.loginUser({ ...params, username: 'emilys', password: 'emilyspass' }),
   })
 
-  async function handleSubmitLogin(evt: React.FormEvent<HTMLFormElement>) {
-    evt.preventDefault()
-    const data = new FormData(evt.currentTarget)
-    const username = data.get('username') as string
-    const password = data.get('password') as string
-
+  async function handleSubmitLogin({ username, password }: LoginParams) {
     await action.mutateAsync({ username, password })
     await router.invalidate()
     await navigate({ to: search.redirect || '/page' })
   }
 
   return (
-    <div>
-      login page
-      <form className=" mt-2 border-t" onSubmit={handleSubmitLogin}>
-        <div>
-          <label htmlFor="username">username：</label>
-          <input name="username" className=" border" type="text" required />
-        </div>
-        <div>
-          <label htmlFor="password">password：</label>
-          <input name="password" className=" border" type="text" required />
-        </div>
-        <button className=" px-2 border-red-400 border ml-2" type="submit" disabled={action.isPending}>
-          {
-            action.isPending ? 'login...' : 'login'
-          }
-        </button>
+    <Center h={800}>
+      <form className=" w-[300px]" onSubmit={form.onSubmit(handleSubmitLogin)}>
+        <TextInput
+          withAsterisk
+          label="用户名"
+          placeholder="请输入用户名"
+          key={form.key('username')}
+          {...form.getInputProps('username')}
+        />
+
+        <TextInput
+          mt="md"
+          withAsterisk
+          label="密码"
+          placeholder="请输入密码"
+          key={form.key('password')}
+          {...form.getInputProps('password')}
+        />
+
+        <Button type="submit" mt="md" fullWidth loading={action.isPending}>登录</Button>
       </form>
-    </div>
+    </Center>
   )
 }

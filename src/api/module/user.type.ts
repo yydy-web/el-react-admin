@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 export interface IUserEntity {
   id: number
   email: string
@@ -6,11 +8,12 @@ export interface IUserEntity {
   lastName: string
 }
 
-export interface ILoginUserParams {
-  username: string
-  password: string
-  expiresInMins?: number
-}
+export const loginParamsSchema = z.object({
+  username: z.string().nonempty('请输入用户名'),
+  password: z.string().nonempty('请输入密码'),
+})
+
+export type LoginParams = z.infer<typeof loginParamsSchema>
 
 export interface ILogRes {
   image: string

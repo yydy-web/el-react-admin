@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/_nesting/layout-test')({
+export const Route = createFileRoute('/_auth/_nesting/layout-test')({
   component: RouteComponent,
 })
 

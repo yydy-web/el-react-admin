@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { createLazyFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { userQueryListOptions } from '~/api'
 
-export const Route = createLazyFileRoute('/user')({
+export const Route = createLazyFileRoute('/_auth/user')({
   component: RouteComponent,
   pendingComponent() {
     return <div>pendingComponent...</div>

@@ -14,63 +14,40 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
-import { Route as IconImport } from './routes/icon'
-import { Route as NestingImport } from './routes/_nesting'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as PageImport } from './routes/$page'
-import { Route as IndexImport } from './routes/index'
-import { Route as TableIndexImport } from './routes/table/index'
-import { Route as AboutIndexImport } from './routes/about/index'
-import { Route as UserPagerImport } from './routes/user/pager'
-import { Route as UserIdImport } from './routes/user/$id'
-import { Route as AboutIdImport } from './routes/about/$id'
-import { Route as NestingLayoutTestImport } from './routes/_nesting/layout-test'
-import { Route as NestingLayoutImport } from './routes/_nesting/_layout'
+import { Route as AuthIndexImport } from './routes/_auth/index'
 import { Route as AuthPage2Import } from './routes/_auth/page2'
 import { Route as AuthPageImport } from './routes/_auth/page'
-import { Route as groupGroup3Import } from './routes/(group)/group3'
-import { Route as groupGroup2Import } from './routes/(group)/group2'
-import { Route as AboutNameIndexImport } from './routes/about/name/index'
-import { Route as AboutValueIndexImport } from './routes/about/$value/index'
-import { Route as AboutNameNameImport } from './routes/about/name/$name'
-import { Route as AboutValueCreateImport } from './routes/about/$value/create'
-import { Route as NestingLayoutTest2Import } from './routes/_nesting/_layout/test2'
-import { Route as NestingLayoutTest3IdImport } from './routes/_nesting/_layout/test3.$id'
+import { Route as AuthIconImport } from './routes/_auth/icon'
+import { Route as AuthNestingImport } from './routes/_auth/_nesting'
+import { Route as AuthTableIndexImport } from './routes/_auth/table/index'
+import { Route as AuthAboutIndexImport } from './routes/_auth/about/index'
+import { Route as AuthUserPagerImport } from './routes/_auth/user/pager'
+import { Route as AuthUserIdImport } from './routes/_auth/user/$id'
+import { Route as AuthAboutIdImport } from './routes/_auth/about/$id'
+import { Route as AuthNestingLayoutTestImport } from './routes/_auth/_nesting/layout-test'
+import { Route as AuthNestingLayoutImport } from './routes/_auth/_nesting/_layout'
+import { Route as AuthgroupGroup3Import } from './routes/_auth/(group)/group3'
+import { Route as AuthgroupGroup2Import } from './routes/_auth/(group)/group2'
+import { Route as AuthAboutNameIndexImport } from './routes/_auth/about/name/index'
+import { Route as AuthAboutValueIndexImport } from './routes/_auth/about/$value/index'
+import { Route as AuthAboutNameNameImport } from './routes/_auth/about/name/$name'
+import { Route as AuthAboutValueCreateImport } from './routes/_auth/about/$value/create'
+import { Route as AuthNestingLayoutTest2Import } from './routes/_auth/_nesting/_layout/test2'
+import { Route as AuthNestingLayoutTest3IdImport } from './routes/_auth/_nesting/_layout/test3.$id'
 
 // Create Virtual Routes
 
-const UserLazyImport = createFileRoute('/user')()
-const StoreLazyImport = createFileRoute('/store')()
-const UserIndexLazyImport = createFileRoute('/user/')()
+const AuthUserLazyImport = createFileRoute('/_auth/user')()
+const AuthStoreLazyImport = createFileRoute('/_auth/store')()
+const AuthUserIndexLazyImport = createFileRoute('/_auth/user/')()
 
 // Create/Update Routes
-
-const UserLazyRoute = UserLazyImport.update({
-  id: '/user',
-  path: '/user',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/user.lazy').then((d) => d.Route))
-
-const StoreLazyRoute = StoreLazyImport.update({
-  id: '/store',
-  path: '/store',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/store.lazy').then((d) => d.Route))
 
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IconRoute = IconImport.update({
-  id: '/icon',
-  path: '/icon',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const NestingRoute = NestingImport.update({
-  id: '/_nesting',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -85,58 +62,23 @@ const PageRoute = PageImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
+const AuthIndexRoute = AuthIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const UserIndexLazyRoute = UserIndexLazyImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => UserLazyRoute,
-} as any).lazy(() => import('./routes/user/index.lazy').then((d) => d.Route))
+const AuthUserLazyRoute = AuthUserLazyImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() => import('./routes/_auth/user.lazy').then((d) => d.Route))
 
-const TableIndexRoute = TableIndexImport.update({
-  id: '/table/',
-  path: '/table/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AboutIndexRoute = AboutIndexImport.update({
-  id: '/about/',
-  path: '/about/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const UserPagerRoute = UserPagerImport.update({
-  id: '/pager',
-  path: '/pager',
-  getParentRoute: () => UserLazyRoute,
-} as any)
-
-const UserIdRoute = UserIdImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => UserLazyRoute,
-} as any)
-
-const AboutIdRoute = AboutIdImport.update({
-  id: '/about/$id',
-  path: '/about/$id',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const NestingLayoutTestRoute = NestingLayoutTestImport.update({
-  id: '/layout-test',
-  path: '/layout-test',
-  getParentRoute: () => NestingRoute,
-} as any)
-
-const NestingLayoutRoute = NestingLayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => NestingRoute,
-} as any)
+const AuthStoreLazyRoute = AuthStoreLazyImport.update({
+  id: '/store',
+  path: '/store',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() => import('./routes/_auth/store.lazy').then((d) => d.Route))
 
 const AuthPage2Route = AuthPage2Import.update({
   id: '/page2',
@@ -150,65 +92,118 @@ const AuthPageRoute = AuthPageImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const groupGroup3Route = groupGroup3Import.update({
+const AuthIconRoute = AuthIconImport.update({
+  id: '/icon',
+  path: '/icon',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthNestingRoute = AuthNestingImport.update({
+  id: '/_nesting',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthUserIndexLazyRoute = AuthUserIndexLazyImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthUserLazyRoute,
+} as any).lazy(() =>
+  import('./routes/_auth/user/index.lazy').then((d) => d.Route),
+)
+
+const AuthTableIndexRoute = AuthTableIndexImport.update({
+  id: '/table/',
+  path: '/table/',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthAboutIndexRoute = AuthAboutIndexImport.update({
+  id: '/about/',
+  path: '/about/',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthUserPagerRoute = AuthUserPagerImport.update({
+  id: '/pager',
+  path: '/pager',
+  getParentRoute: () => AuthUserLazyRoute,
+} as any)
+
+const AuthUserIdRoute = AuthUserIdImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthUserLazyRoute,
+} as any)
+
+const AuthAboutIdRoute = AuthAboutIdImport.update({
+  id: '/about/$id',
+  path: '/about/$id',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthNestingLayoutTestRoute = AuthNestingLayoutTestImport.update({
+  id: '/layout-test',
+  path: '/layout-test',
+  getParentRoute: () => AuthNestingRoute,
+} as any)
+
+const AuthNestingLayoutRoute = AuthNestingLayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => AuthNestingRoute,
+} as any)
+
+const AuthgroupGroup3Route = AuthgroupGroup3Import.update({
   id: '/(group)/group3',
   path: '/group3',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const groupGroup2Route = groupGroup2Import.update({
+const AuthgroupGroup2Route = AuthgroupGroup2Import.update({
   id: '/(group)/group2',
   path: '/group2',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const AboutNameIndexRoute = AboutNameIndexImport.update({
+const AuthAboutNameIndexRoute = AuthAboutNameIndexImport.update({
   id: '/about/name/',
   path: '/about/name/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const AboutValueIndexRoute = AboutValueIndexImport.update({
+const AuthAboutValueIndexRoute = AuthAboutValueIndexImport.update({
   id: '/about/$value/',
   path: '/about/$value/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const AboutNameNameRoute = AboutNameNameImport.update({
+const AuthAboutNameNameRoute = AuthAboutNameNameImport.update({
   id: '/about/name/$name',
   path: '/about/name/$name',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const AboutValueCreateRoute = AboutValueCreateImport.update({
+const AuthAboutValueCreateRoute = AuthAboutValueCreateImport.update({
   id: '/about/$value/create',
   path: '/about/$value/create',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthRoute,
 } as any)
 
-const NestingLayoutTest2Route = NestingLayoutTest2Import.update({
+const AuthNestingLayoutTest2Route = AuthNestingLayoutTest2Import.update({
   id: '/test2',
   path: '/test2',
-  getParentRoute: () => NestingLayoutRoute,
+  getParentRoute: () => AuthNestingLayoutRoute,
 } as any)
 
-const NestingLayoutTest3IdRoute = NestingLayoutTest3IdImport.update({
+const AuthNestingLayoutTest3IdRoute = AuthNestingLayoutTest3IdImport.update({
   id: '/test3/$id',
   path: '/test3/$id',
-  getParentRoute: () => NestingLayoutRoute,
+  getParentRoute: () => AuthNestingLayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/$page': {
       id: '/$page'
       path: '/$page'
@@ -223,20 +218,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthImport
       parentRoute: typeof rootRoute
     }
-    '/_nesting': {
-      id: '/_nesting'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof NestingImport
-      parentRoute: typeof rootRoute
-    }
-    '/icon': {
-      id: '/icon'
-      path: '/icon'
-      fullPath: '/icon'
-      preLoaderRoute: typeof IconImport
-      parentRoute: typeof rootRoute
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -244,33 +225,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/store': {
-      id: '/store'
-      path: '/store'
-      fullPath: '/store'
-      preLoaderRoute: typeof StoreLazyImport
-      parentRoute: typeof rootRoute
+    '/_auth/_nesting': {
+      id: '/_auth/_nesting'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthNestingImport
+      parentRoute: typeof AuthImport
     }
-    '/user': {
-      id: '/user'
-      path: '/user'
-      fullPath: '/user'
-      preLoaderRoute: typeof UserLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/(group)/group2': {
-      id: '/(group)/group2'
-      path: '/group2'
-      fullPath: '/group2'
-      preLoaderRoute: typeof groupGroup2Import
-      parentRoute: typeof rootRoute
-    }
-    '/(group)/group3': {
-      id: '/(group)/group3'
-      path: '/group3'
-      fullPath: '/group3'
-      preLoaderRoute: typeof groupGroup3Import
-      parentRoute: typeof rootRoute
+    '/_auth/icon': {
+      id: '/_auth/icon'
+      path: '/icon'
+      fullPath: '/icon'
+      preLoaderRoute: typeof AuthIconImport
+      parentRoute: typeof AuthImport
     }
     '/_auth/page': {
       id: '/_auth/page'
@@ -286,261 +253,324 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthPage2Import
       parentRoute: typeof AuthImport
     }
-    '/_nesting/_layout': {
-      id: '/_nesting/_layout'
+    '/_auth/store': {
+      id: '/_auth/store'
+      path: '/store'
+      fullPath: '/store'
+      preLoaderRoute: typeof AuthStoreLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/user': {
+      id: '/_auth/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof AuthUserLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/': {
+      id: '/_auth/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AuthIndexImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/(group)/group2': {
+      id: '/_auth/(group)/group2'
+      path: '/group2'
+      fullPath: '/group2'
+      preLoaderRoute: typeof AuthgroupGroup2Import
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/(group)/group3': {
+      id: '/_auth/(group)/group3'
+      path: '/group3'
+      fullPath: '/group3'
+      preLoaderRoute: typeof AuthgroupGroup3Import
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/_nesting/_layout': {
+      id: '/_auth/_nesting/_layout'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof NestingLayoutImport
-      parentRoute: typeof NestingImport
+      preLoaderRoute: typeof AuthNestingLayoutImport
+      parentRoute: typeof AuthNestingImport
     }
-    '/_nesting/layout-test': {
-      id: '/_nesting/layout-test'
+    '/_auth/_nesting/layout-test': {
+      id: '/_auth/_nesting/layout-test'
       path: '/layout-test'
       fullPath: '/layout-test'
-      preLoaderRoute: typeof NestingLayoutTestImport
-      parentRoute: typeof NestingImport
+      preLoaderRoute: typeof AuthNestingLayoutTestImport
+      parentRoute: typeof AuthNestingImport
     }
-    '/about/$id': {
-      id: '/about/$id'
+    '/_auth/about/$id': {
+      id: '/_auth/about/$id'
       path: '/about/$id'
       fullPath: '/about/$id'
-      preLoaderRoute: typeof AboutIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthAboutIdImport
+      parentRoute: typeof AuthImport
     }
-    '/user/$id': {
-      id: '/user/$id'
+    '/_auth/user/$id': {
+      id: '/_auth/user/$id'
       path: '/$id'
       fullPath: '/user/$id'
-      preLoaderRoute: typeof UserIdImport
-      parentRoute: typeof UserLazyImport
+      preLoaderRoute: typeof AuthUserIdImport
+      parentRoute: typeof AuthUserLazyImport
     }
-    '/user/pager': {
-      id: '/user/pager'
+    '/_auth/user/pager': {
+      id: '/_auth/user/pager'
       path: '/pager'
       fullPath: '/user/pager'
-      preLoaderRoute: typeof UserPagerImport
-      parentRoute: typeof UserLazyImport
+      preLoaderRoute: typeof AuthUserPagerImport
+      parentRoute: typeof AuthUserLazyImport
     }
-    '/about/': {
-      id: '/about/'
+    '/_auth/about/': {
+      id: '/_auth/about/'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthAboutIndexImport
+      parentRoute: typeof AuthImport
     }
-    '/table/': {
-      id: '/table/'
+    '/_auth/table/': {
+      id: '/_auth/table/'
       path: '/table'
       fullPath: '/table'
-      preLoaderRoute: typeof TableIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthTableIndexImport
+      parentRoute: typeof AuthImport
     }
-    '/user/': {
-      id: '/user/'
+    '/_auth/user/': {
+      id: '/_auth/user/'
       path: '/'
       fullPath: '/user/'
-      preLoaderRoute: typeof UserIndexLazyImport
-      parentRoute: typeof UserLazyImport
+      preLoaderRoute: typeof AuthUserIndexLazyImport
+      parentRoute: typeof AuthUserLazyImport
     }
-    '/_nesting/_layout/test2': {
-      id: '/_nesting/_layout/test2'
+    '/_auth/_nesting/_layout/test2': {
+      id: '/_auth/_nesting/_layout/test2'
       path: '/test2'
       fullPath: '/test2'
-      preLoaderRoute: typeof NestingLayoutTest2Import
-      parentRoute: typeof NestingLayoutImport
+      preLoaderRoute: typeof AuthNestingLayoutTest2Import
+      parentRoute: typeof AuthNestingLayoutImport
     }
-    '/about/$value/create': {
-      id: '/about/$value/create'
+    '/_auth/about/$value/create': {
+      id: '/_auth/about/$value/create'
       path: '/about/$value/create'
       fullPath: '/about/$value/create'
-      preLoaderRoute: typeof AboutValueCreateImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthAboutValueCreateImport
+      parentRoute: typeof AuthImport
     }
-    '/about/name/$name': {
-      id: '/about/name/$name'
+    '/_auth/about/name/$name': {
+      id: '/_auth/about/name/$name'
       path: '/about/name/$name'
       fullPath: '/about/name/$name'
-      preLoaderRoute: typeof AboutNameNameImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthAboutNameNameImport
+      parentRoute: typeof AuthImport
     }
-    '/about/$value/': {
-      id: '/about/$value/'
+    '/_auth/about/$value/': {
+      id: '/_auth/about/$value/'
       path: '/about/$value'
       fullPath: '/about/$value'
-      preLoaderRoute: typeof AboutValueIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthAboutValueIndexImport
+      parentRoute: typeof AuthImport
     }
-    '/about/name/': {
-      id: '/about/name/'
+    '/_auth/about/name/': {
+      id: '/_auth/about/name/'
       path: '/about/name'
       fullPath: '/about/name'
-      preLoaderRoute: typeof AboutNameIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthAboutNameIndexImport
+      parentRoute: typeof AuthImport
     }
-    '/_nesting/_layout/test3/$id': {
-      id: '/_nesting/_layout/test3/$id'
+    '/_auth/_nesting/_layout/test3/$id': {
+      id: '/_auth/_nesting/_layout/test3/$id'
       path: '/test3/$id'
       fullPath: '/test3/$id'
-      preLoaderRoute: typeof NestingLayoutTest3IdImport
-      parentRoute: typeof NestingLayoutImport
+      preLoaderRoute: typeof AuthNestingLayoutTest3IdImport
+      parentRoute: typeof AuthNestingLayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AuthNestingLayoutRouteChildren {
+  AuthNestingLayoutTest2Route: typeof AuthNestingLayoutTest2Route
+  AuthNestingLayoutTest3IdRoute: typeof AuthNestingLayoutTest3IdRoute
+}
+
+const AuthNestingLayoutRouteChildren: AuthNestingLayoutRouteChildren = {
+  AuthNestingLayoutTest2Route: AuthNestingLayoutTest2Route,
+  AuthNestingLayoutTest3IdRoute: AuthNestingLayoutTest3IdRoute,
+}
+
+const AuthNestingLayoutRouteWithChildren =
+  AuthNestingLayoutRoute._addFileChildren(AuthNestingLayoutRouteChildren)
+
+interface AuthNestingRouteChildren {
+  AuthNestingLayoutRoute: typeof AuthNestingLayoutRouteWithChildren
+  AuthNestingLayoutTestRoute: typeof AuthNestingLayoutTestRoute
+}
+
+const AuthNestingRouteChildren: AuthNestingRouteChildren = {
+  AuthNestingLayoutRoute: AuthNestingLayoutRouteWithChildren,
+  AuthNestingLayoutTestRoute: AuthNestingLayoutTestRoute,
+}
+
+const AuthNestingRouteWithChildren = AuthNestingRoute._addFileChildren(
+  AuthNestingRouteChildren,
+)
+
+interface AuthUserLazyRouteChildren {
+  AuthUserIdRoute: typeof AuthUserIdRoute
+  AuthUserPagerRoute: typeof AuthUserPagerRoute
+  AuthUserIndexLazyRoute: typeof AuthUserIndexLazyRoute
+}
+
+const AuthUserLazyRouteChildren: AuthUserLazyRouteChildren = {
+  AuthUserIdRoute: AuthUserIdRoute,
+  AuthUserPagerRoute: AuthUserPagerRoute,
+  AuthUserIndexLazyRoute: AuthUserIndexLazyRoute,
+}
+
+const AuthUserLazyRouteWithChildren = AuthUserLazyRoute._addFileChildren(
+  AuthUserLazyRouteChildren,
+)
+
 interface AuthRouteChildren {
+  AuthNestingRoute: typeof AuthNestingRouteWithChildren
+  AuthIconRoute: typeof AuthIconRoute
   AuthPageRoute: typeof AuthPageRoute
   AuthPage2Route: typeof AuthPage2Route
+  AuthStoreLazyRoute: typeof AuthStoreLazyRoute
+  AuthUserLazyRoute: typeof AuthUserLazyRouteWithChildren
+  AuthIndexRoute: typeof AuthIndexRoute
+  AuthgroupGroup2Route: typeof AuthgroupGroup2Route
+  AuthgroupGroup3Route: typeof AuthgroupGroup3Route
+  AuthAboutIdRoute: typeof AuthAboutIdRoute
+  AuthAboutIndexRoute: typeof AuthAboutIndexRoute
+  AuthTableIndexRoute: typeof AuthTableIndexRoute
+  AuthAboutValueCreateRoute: typeof AuthAboutValueCreateRoute
+  AuthAboutNameNameRoute: typeof AuthAboutNameNameRoute
+  AuthAboutValueIndexRoute: typeof AuthAboutValueIndexRoute
+  AuthAboutNameIndexRoute: typeof AuthAboutNameIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
+  AuthNestingRoute: AuthNestingRouteWithChildren,
+  AuthIconRoute: AuthIconRoute,
   AuthPageRoute: AuthPageRoute,
   AuthPage2Route: AuthPage2Route,
+  AuthStoreLazyRoute: AuthStoreLazyRoute,
+  AuthUserLazyRoute: AuthUserLazyRouteWithChildren,
+  AuthIndexRoute: AuthIndexRoute,
+  AuthgroupGroup2Route: AuthgroupGroup2Route,
+  AuthgroupGroup3Route: AuthgroupGroup3Route,
+  AuthAboutIdRoute: AuthAboutIdRoute,
+  AuthAboutIndexRoute: AuthAboutIndexRoute,
+  AuthTableIndexRoute: AuthTableIndexRoute,
+  AuthAboutValueCreateRoute: AuthAboutValueCreateRoute,
+  AuthAboutNameNameRoute: AuthAboutNameNameRoute,
+  AuthAboutValueIndexRoute: AuthAboutValueIndexRoute,
+  AuthAboutNameIndexRoute: AuthAboutNameIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
-interface NestingLayoutRouteChildren {
-  NestingLayoutTest2Route: typeof NestingLayoutTest2Route
-  NestingLayoutTest3IdRoute: typeof NestingLayoutTest3IdRoute
-}
-
-const NestingLayoutRouteChildren: NestingLayoutRouteChildren = {
-  NestingLayoutTest2Route: NestingLayoutTest2Route,
-  NestingLayoutTest3IdRoute: NestingLayoutTest3IdRoute,
-}
-
-const NestingLayoutRouteWithChildren = NestingLayoutRoute._addFileChildren(
-  NestingLayoutRouteChildren,
-)
-
-interface NestingRouteChildren {
-  NestingLayoutRoute: typeof NestingLayoutRouteWithChildren
-  NestingLayoutTestRoute: typeof NestingLayoutTestRoute
-}
-
-const NestingRouteChildren: NestingRouteChildren = {
-  NestingLayoutRoute: NestingLayoutRouteWithChildren,
-  NestingLayoutTestRoute: NestingLayoutTestRoute,
-}
-
-const NestingRouteWithChildren =
-  NestingRoute._addFileChildren(NestingRouteChildren)
-
-interface UserLazyRouteChildren {
-  UserIdRoute: typeof UserIdRoute
-  UserPagerRoute: typeof UserPagerRoute
-  UserIndexLazyRoute: typeof UserIndexLazyRoute
-}
-
-const UserLazyRouteChildren: UserLazyRouteChildren = {
-  UserIdRoute: UserIdRoute,
-  UserPagerRoute: UserPagerRoute,
-  UserIndexLazyRoute: UserIndexLazyRoute,
-}
-
-const UserLazyRouteWithChildren = UserLazyRoute._addFileChildren(
-  UserLazyRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/$page': typeof PageRoute
-  '': typeof NestingLayoutRouteWithChildren
-  '/icon': typeof IconRoute
+  '': typeof AuthNestingLayoutRouteWithChildren
   '/login': typeof LoginRoute
-  '/store': typeof StoreLazyRoute
-  '/user': typeof UserLazyRouteWithChildren
-  '/group2': typeof groupGroup2Route
-  '/group3': typeof groupGroup3Route
+  '/icon': typeof AuthIconRoute
   '/page': typeof AuthPageRoute
   '/page2': typeof AuthPage2Route
-  '/layout-test': typeof NestingLayoutTestRoute
-  '/about/$id': typeof AboutIdRoute
-  '/user/$id': typeof UserIdRoute
-  '/user/pager': typeof UserPagerRoute
-  '/about': typeof AboutIndexRoute
-  '/table': typeof TableIndexRoute
-  '/user/': typeof UserIndexLazyRoute
-  '/test2': typeof NestingLayoutTest2Route
-  '/about/$value/create': typeof AboutValueCreateRoute
-  '/about/name/$name': typeof AboutNameNameRoute
-  '/about/$value': typeof AboutValueIndexRoute
-  '/about/name': typeof AboutNameIndexRoute
-  '/test3/$id': typeof NestingLayoutTest3IdRoute
+  '/store': typeof AuthStoreLazyRoute
+  '/user': typeof AuthUserLazyRouteWithChildren
+  '/': typeof AuthIndexRoute
+  '/group2': typeof AuthgroupGroup2Route
+  '/group3': typeof AuthgroupGroup3Route
+  '/layout-test': typeof AuthNestingLayoutTestRoute
+  '/about/$id': typeof AuthAboutIdRoute
+  '/user/$id': typeof AuthUserIdRoute
+  '/user/pager': typeof AuthUserPagerRoute
+  '/about': typeof AuthAboutIndexRoute
+  '/table': typeof AuthTableIndexRoute
+  '/user/': typeof AuthUserIndexLazyRoute
+  '/test2': typeof AuthNestingLayoutTest2Route
+  '/about/$value/create': typeof AuthAboutValueCreateRoute
+  '/about/name/$name': typeof AuthAboutNameNameRoute
+  '/about/$value': typeof AuthAboutValueIndexRoute
+  '/about/name': typeof AuthAboutNameIndexRoute
+  '/test3/$id': typeof AuthNestingLayoutTest3IdRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/$page': typeof PageRoute
-  '': typeof NestingLayoutRouteWithChildren
-  '/icon': typeof IconRoute
   '/login': typeof LoginRoute
-  '/store': typeof StoreLazyRoute
-  '/group2': typeof groupGroup2Route
-  '/group3': typeof groupGroup3Route
+  '': typeof AuthNestingLayoutRouteWithChildren
+  '/icon': typeof AuthIconRoute
   '/page': typeof AuthPageRoute
   '/page2': typeof AuthPage2Route
-  '/layout-test': typeof NestingLayoutTestRoute
-  '/about/$id': typeof AboutIdRoute
-  '/user/$id': typeof UserIdRoute
-  '/user/pager': typeof UserPagerRoute
-  '/about': typeof AboutIndexRoute
-  '/table': typeof TableIndexRoute
-  '/user': typeof UserIndexLazyRoute
-  '/test2': typeof NestingLayoutTest2Route
-  '/about/$value/create': typeof AboutValueCreateRoute
-  '/about/name/$name': typeof AboutNameNameRoute
-  '/about/$value': typeof AboutValueIndexRoute
-  '/about/name': typeof AboutNameIndexRoute
-  '/test3/$id': typeof NestingLayoutTest3IdRoute
+  '/store': typeof AuthStoreLazyRoute
+  '/': typeof AuthIndexRoute
+  '/group2': typeof AuthgroupGroup2Route
+  '/group3': typeof AuthgroupGroup3Route
+  '/layout-test': typeof AuthNestingLayoutTestRoute
+  '/about/$id': typeof AuthAboutIdRoute
+  '/user/$id': typeof AuthUserIdRoute
+  '/user/pager': typeof AuthUserPagerRoute
+  '/about': typeof AuthAboutIndexRoute
+  '/table': typeof AuthTableIndexRoute
+  '/user': typeof AuthUserIndexLazyRoute
+  '/test2': typeof AuthNestingLayoutTest2Route
+  '/about/$value/create': typeof AuthAboutValueCreateRoute
+  '/about/name/$name': typeof AuthAboutNameNameRoute
+  '/about/$value': typeof AuthAboutValueIndexRoute
+  '/about/name': typeof AuthAboutNameIndexRoute
+  '/test3/$id': typeof AuthNestingLayoutTest3IdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/$page': typeof PageRoute
   '/_auth': typeof AuthRouteWithChildren
-  '/_nesting': typeof NestingRouteWithChildren
-  '/icon': typeof IconRoute
   '/login': typeof LoginRoute
-  '/store': typeof StoreLazyRoute
-  '/user': typeof UserLazyRouteWithChildren
-  '/(group)/group2': typeof groupGroup2Route
-  '/(group)/group3': typeof groupGroup3Route
+  '/_auth/_nesting': typeof AuthNestingRouteWithChildren
+  '/_auth/icon': typeof AuthIconRoute
   '/_auth/page': typeof AuthPageRoute
   '/_auth/page2': typeof AuthPage2Route
-  '/_nesting/_layout': typeof NestingLayoutRouteWithChildren
-  '/_nesting/layout-test': typeof NestingLayoutTestRoute
-  '/about/$id': typeof AboutIdRoute
-  '/user/$id': typeof UserIdRoute
-  '/user/pager': typeof UserPagerRoute
-  '/about/': typeof AboutIndexRoute
-  '/table/': typeof TableIndexRoute
-  '/user/': typeof UserIndexLazyRoute
-  '/_nesting/_layout/test2': typeof NestingLayoutTest2Route
-  '/about/$value/create': typeof AboutValueCreateRoute
-  '/about/name/$name': typeof AboutNameNameRoute
-  '/about/$value/': typeof AboutValueIndexRoute
-  '/about/name/': typeof AboutNameIndexRoute
-  '/_nesting/_layout/test3/$id': typeof NestingLayoutTest3IdRoute
+  '/_auth/store': typeof AuthStoreLazyRoute
+  '/_auth/user': typeof AuthUserLazyRouteWithChildren
+  '/_auth/': typeof AuthIndexRoute
+  '/_auth/(group)/group2': typeof AuthgroupGroup2Route
+  '/_auth/(group)/group3': typeof AuthgroupGroup3Route
+  '/_auth/_nesting/_layout': typeof AuthNestingLayoutRouteWithChildren
+  '/_auth/_nesting/layout-test': typeof AuthNestingLayoutTestRoute
+  '/_auth/about/$id': typeof AuthAboutIdRoute
+  '/_auth/user/$id': typeof AuthUserIdRoute
+  '/_auth/user/pager': typeof AuthUserPagerRoute
+  '/_auth/about/': typeof AuthAboutIndexRoute
+  '/_auth/table/': typeof AuthTableIndexRoute
+  '/_auth/user/': typeof AuthUserIndexLazyRoute
+  '/_auth/_nesting/_layout/test2': typeof AuthNestingLayoutTest2Route
+  '/_auth/about/$value/create': typeof AuthAboutValueCreateRoute
+  '/_auth/about/name/$name': typeof AuthAboutNameNameRoute
+  '/_auth/about/$value/': typeof AuthAboutValueIndexRoute
+  '/_auth/about/name/': typeof AuthAboutNameIndexRoute
+  '/_auth/_nesting/_layout/test3/$id': typeof AuthNestingLayoutTest3IdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/$page'
     | ''
-    | '/icon'
     | '/login'
-    | '/store'
-    | '/user'
-    | '/group2'
-    | '/group3'
+    | '/icon'
     | '/page'
     | '/page2'
+    | '/store'
+    | '/user'
+    | '/'
+    | '/group2'
+    | '/group3'
     | '/layout-test'
     | '/about/$id'
     | '/user/$id'
@@ -556,16 +586,16 @@ export interface FileRouteTypes {
     | '/test3/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/$page'
+    | '/login'
     | ''
     | '/icon'
-    | '/login'
-    | '/store'
-    | '/group2'
-    | '/group3'
     | '/page'
     | '/page2'
+    | '/store'
+    | '/'
+    | '/group2'
+    | '/group3'
     | '/layout-test'
     | '/about/$id'
     | '/user/$id'
@@ -581,73 +611,45 @@ export interface FileRouteTypes {
     | '/test3/$id'
   id:
     | '__root__'
-    | '/'
     | '/$page'
     | '/_auth'
-    | '/_nesting'
-    | '/icon'
     | '/login'
-    | '/store'
-    | '/user'
-    | '/(group)/group2'
-    | '/(group)/group3'
+    | '/_auth/_nesting'
+    | '/_auth/icon'
     | '/_auth/page'
     | '/_auth/page2'
-    | '/_nesting/_layout'
-    | '/_nesting/layout-test'
-    | '/about/$id'
-    | '/user/$id'
-    | '/user/pager'
-    | '/about/'
-    | '/table/'
-    | '/user/'
-    | '/_nesting/_layout/test2'
-    | '/about/$value/create'
-    | '/about/name/$name'
-    | '/about/$value/'
-    | '/about/name/'
-    | '/_nesting/_layout/test3/$id'
+    | '/_auth/store'
+    | '/_auth/user'
+    | '/_auth/'
+    | '/_auth/(group)/group2'
+    | '/_auth/(group)/group3'
+    | '/_auth/_nesting/_layout'
+    | '/_auth/_nesting/layout-test'
+    | '/_auth/about/$id'
+    | '/_auth/user/$id'
+    | '/_auth/user/pager'
+    | '/_auth/about/'
+    | '/_auth/table/'
+    | '/_auth/user/'
+    | '/_auth/_nesting/_layout/test2'
+    | '/_auth/about/$value/create'
+    | '/_auth/about/name/$name'
+    | '/_auth/about/$value/'
+    | '/_auth/about/name/'
+    | '/_auth/_nesting/_layout/test3/$id'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   PageRoute: typeof PageRoute
   AuthRoute: typeof AuthRouteWithChildren
-  NestingRoute: typeof NestingRouteWithChildren
-  IconRoute: typeof IconRoute
   LoginRoute: typeof LoginRoute
-  StoreLazyRoute: typeof StoreLazyRoute
-  UserLazyRoute: typeof UserLazyRouteWithChildren
-  groupGroup2Route: typeof groupGroup2Route
-  groupGroup3Route: typeof groupGroup3Route
-  AboutIdRoute: typeof AboutIdRoute
-  AboutIndexRoute: typeof AboutIndexRoute
-  TableIndexRoute: typeof TableIndexRoute
-  AboutValueCreateRoute: typeof AboutValueCreateRoute
-  AboutNameNameRoute: typeof AboutNameNameRoute
-  AboutValueIndexRoute: typeof AboutValueIndexRoute
-  AboutNameIndexRoute: typeof AboutNameIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   PageRoute: PageRoute,
   AuthRoute: AuthRouteWithChildren,
-  NestingRoute: NestingRouteWithChildren,
-  IconRoute: IconRoute,
   LoginRoute: LoginRoute,
-  StoreLazyRoute: StoreLazyRoute,
-  UserLazyRoute: UserLazyRouteWithChildren,
-  groupGroup2Route: groupGroup2Route,
-  groupGroup3Route: groupGroup3Route,
-  AboutIdRoute: AboutIdRoute,
-  AboutIndexRoute: AboutIndexRoute,
-  TableIndexRoute: TableIndexRoute,
-  AboutValueCreateRoute: AboutValueCreateRoute,
-  AboutNameNameRoute: AboutNameNameRoute,
-  AboutValueIndexRoute: AboutValueIndexRoute,
-  AboutNameIndexRoute: AboutNameIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -660,27 +662,10 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/$page",
         "/_auth",
-        "/_nesting",
-        "/icon",
-        "/login",
-        "/store",
-        "/user",
-        "/(group)/group2",
-        "/(group)/group3",
-        "/about/$id",
-        "/about/",
-        "/table/",
-        "/about/$value/create",
-        "/about/name/$name",
-        "/about/$value/",
-        "/about/name/"
+        "/login"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/$page": {
       "filePath": "$page.tsx"
@@ -688,39 +673,38 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth.tsx",
       "children": [
+        "/_auth/_nesting",
+        "/_auth/icon",
         "/_auth/page",
-        "/_auth/page2"
+        "/_auth/page2",
+        "/_auth/store",
+        "/_auth/user",
+        "/_auth/",
+        "/_auth/(group)/group2",
+        "/_auth/(group)/group3",
+        "/_auth/about/$id",
+        "/_auth/about/",
+        "/_auth/table/",
+        "/_auth/about/$value/create",
+        "/_auth/about/name/$name",
+        "/_auth/about/$value/",
+        "/_auth/about/name/"
       ]
-    },
-    "/_nesting": {
-      "filePath": "_nesting.tsx",
-      "children": [
-        "/_nesting/_layout",
-        "/_nesting/layout-test"
-      ]
-    },
-    "/icon": {
-      "filePath": "icon.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
     },
-    "/store": {
-      "filePath": "store.lazy.tsx"
-    },
-    "/user": {
-      "filePath": "user.lazy.tsx",
+    "/_auth/_nesting": {
+      "filePath": "_auth/_nesting.tsx",
+      "parent": "/_auth",
       "children": [
-        "/user/$id",
-        "/user/pager",
-        "/user/"
+        "/_auth/_nesting/_layout",
+        "/_auth/_nesting/layout-test"
       ]
     },
-    "/(group)/group2": {
-      "filePath": "(group)/group2.tsx"
-    },
-    "/(group)/group3": {
-      "filePath": "(group)/group3.tsx"
+    "/_auth/icon": {
+      "filePath": "_auth/icon.tsx",
+      "parent": "/_auth"
     },
     "/_auth/page": {
       "filePath": "_auth/page.tsx",
@@ -730,58 +714,90 @@ export const routeTree = rootRoute
       "filePath": "_auth/page2.tsx",
       "parent": "/_auth"
     },
-    "/_nesting/_layout": {
-      "filePath": "_nesting/_layout.tsx",
-      "parent": "/_nesting",
+    "/_auth/store": {
+      "filePath": "_auth/store.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/user": {
+      "filePath": "_auth/user.lazy.tsx",
+      "parent": "/_auth",
       "children": [
-        "/_nesting/_layout/test2",
-        "/_nesting/_layout/test3/$id"
+        "/_auth/user/$id",
+        "/_auth/user/pager",
+        "/_auth/user/"
       ]
     },
-    "/_nesting/layout-test": {
-      "filePath": "_nesting/layout-test.tsx",
-      "parent": "/_nesting"
+    "/_auth/": {
+      "filePath": "_auth/index.tsx",
+      "parent": "/_auth"
     },
-    "/about/$id": {
-      "filePath": "about/$id.tsx"
+    "/_auth/(group)/group2": {
+      "filePath": "_auth/(group)/group2.tsx",
+      "parent": "/_auth"
     },
-    "/user/$id": {
-      "filePath": "user/$id.tsx",
-      "parent": "/user"
+    "/_auth/(group)/group3": {
+      "filePath": "_auth/(group)/group3.tsx",
+      "parent": "/_auth"
     },
-    "/user/pager": {
-      "filePath": "user/pager.tsx",
-      "parent": "/user"
+    "/_auth/_nesting/_layout": {
+      "filePath": "_auth/_nesting/_layout.tsx",
+      "parent": "/_auth/_nesting",
+      "children": [
+        "/_auth/_nesting/_layout/test2",
+        "/_auth/_nesting/_layout/test3/$id"
+      ]
     },
-    "/about/": {
-      "filePath": "about/index.tsx"
+    "/_auth/_nesting/layout-test": {
+      "filePath": "_auth/_nesting/layout-test.tsx",
+      "parent": "/_auth/_nesting"
     },
-    "/table/": {
-      "filePath": "table/index.tsx"
+    "/_auth/about/$id": {
+      "filePath": "_auth/about/$id.tsx",
+      "parent": "/_auth"
     },
-    "/user/": {
-      "filePath": "user/index.lazy.tsx",
-      "parent": "/user"
+    "/_auth/user/$id": {
+      "filePath": "_auth/user/$id.tsx",
+      "parent": "/_auth/user"
     },
-    "/_nesting/_layout/test2": {
-      "filePath": "_nesting/_layout/test2.tsx",
-      "parent": "/_nesting/_layout"
+    "/_auth/user/pager": {
+      "filePath": "_auth/user/pager.tsx",
+      "parent": "/_auth/user"
     },
-    "/about/$value/create": {
-      "filePath": "about/$value/create.tsx"
+    "/_auth/about/": {
+      "filePath": "_auth/about/index.tsx",
+      "parent": "/_auth"
     },
-    "/about/name/$name": {
-      "filePath": "about/name/$name.tsx"
+    "/_auth/table/": {
+      "filePath": "_auth/table/index.tsx",
+      "parent": "/_auth"
     },
-    "/about/$value/": {
-      "filePath": "about/$value/index.tsx"
+    "/_auth/user/": {
+      "filePath": "_auth/user/index.lazy.tsx",
+      "parent": "/_auth/user"
     },
-    "/about/name/": {
-      "filePath": "about/name/index.tsx"
+    "/_auth/_nesting/_layout/test2": {
+      "filePath": "_auth/_nesting/_layout/test2.tsx",
+      "parent": "/_auth/_nesting/_layout"
     },
-    "/_nesting/_layout/test3/$id": {
-      "filePath": "_nesting/_layout/test3.$id.tsx",
-      "parent": "/_nesting/_layout"
+    "/_auth/about/$value/create": {
+      "filePath": "_auth/about/$value/create.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/about/name/$name": {
+      "filePath": "_auth/about/name/$name.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/about/$value/": {
+      "filePath": "_auth/about/$value/index.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/about/name/": {
+      "filePath": "_auth/about/name/index.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/_nesting/_layout/test3/$id": {
+      "filePath": "_auth/_nesting/_layout/test3.$id.tsx",
+      "parent": "/_auth/_nesting/_layout"
     }
   }
 }

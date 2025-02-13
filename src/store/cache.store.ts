@@ -11,10 +11,12 @@ interface Actions {
   removeToken: () => void
 }
 
+const CACHE_KEY = 'react_cache'
+
 export const useCacheStore = create<States & Actions>()(
   persist(
     immer(set => ({
-      userToken: undefined,
+      userToken: '',
       setToken: (token: string) =>
         set((state) => {
           state.userToken = token
@@ -25,6 +27,9 @@ export const useCacheStore = create<States & Actions>()(
         })
       },
     })),
-    { name: 'cache' },
+    {
+      name: CACHE_KEY,
+      version: 1,
+    },
   ),
 )

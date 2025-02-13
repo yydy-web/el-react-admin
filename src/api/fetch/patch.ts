@@ -11,6 +11,12 @@ export function patchFetch(
   window.fetch = async (...args) => {
     const [resource, config = {}] = args
 
+    if (import.meta.env.DEV) {
+      if (typeof resource === 'string' && resource.includes('hot-update')) {
+        return originFetch(resource, config)
+      }
+    }
+
     const fetchUrl = baseUrl ? `${baseUrl}${resource}` : resource
 
     requestIntercept = Array.isArray(requestIntercept) ? requestIntercept : [requestIntercept]

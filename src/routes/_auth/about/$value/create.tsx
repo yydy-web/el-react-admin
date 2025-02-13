@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/about/$value/')({
+export const Route = createFileRoute('/_auth/about/$value/create')({
   component: RouteComponent,
 })
 
@@ -10,7 +10,7 @@ function RouteComponent() {
     <div>
       Hello "/about/
       { value }
-      /"!
+      /create"!
     </div>
   )
 }

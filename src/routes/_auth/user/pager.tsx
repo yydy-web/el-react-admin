@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import { userQueryPagerOptions } from '~/api'
 import { queryClient } from '~/store'
 
-export const Route = createFileRoute('/user/pager')({
+export const Route = createFileRoute('/_auth/user/pager')({
   component: RouteComponent,
   loader() {
     queryClient.removeQueries({ queryKey: ['user-pager'] })

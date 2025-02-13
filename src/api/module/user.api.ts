@@ -1,7 +1,6 @@
-import type { ILoginUserParams, IUserEntity, IUserList, LoginRes } from './user.type'
+import type { IUserEntity, IUserList, LoginParams, LoginRes } from './user.type'
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 import { fetchClient } from '~/api/fetch'
-import { delay } from '~/utils'
 
 const baseUrl = '/users'
 /**
@@ -20,12 +19,11 @@ export function fetchUserPager({ pageParam: offset }: { pageParam: number }): Pr
   return fetchClient.get<IUserList>(`${baseUrl}?limit=${USER_PAGER_LIMIT}&skip=${offset}`)
 }
 
-export function loginUser(params: ILoginUserParams) {
+export function loginUser(params: LoginParams) {
   return fetchClient.post<LoginRes>(`${baseUrl}/login`, params)
 }
 
 export async function getUserMe() {
-  await delay(2000)
   return fetchClient.get<LoginRes>(`${baseUrl}/me`)
 }
 

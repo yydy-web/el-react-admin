@@ -76,7 +76,7 @@ const columns = [
   }),
 ]
 
-export const Route = createFileRoute('/table/')({
+export const Route = createFileRoute('/_auth/table/')({
   component: RouteComponent,
 })
 
