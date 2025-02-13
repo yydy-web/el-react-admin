@@ -21,12 +21,14 @@ export function useAdminTable<T  extends MRT_RowData>(columns: MRT_ColumnDef<T>[
   const table = useMantineReactTable<T>({
     columns,
     data: dataSource,
+    enableColumnResizing: true,
     initialState: { showColumnFilters: false },
     manualSorting: false,
     manualFiltering: false,
     manualPagination: true,
     onGlobalFilterChange: setGlobalFilter,
     onPaginationChange: setPagination,
+    enableColumnOrdering: true,
     rowCount: total,
     state: {
       globalFilter,
