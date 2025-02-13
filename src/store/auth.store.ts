@@ -1,6 +1,7 @@
 import type { LoginParams, LoginRes } from '~/api'
 import { omit } from 'lodash-es'
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { loginUser, userMeQueryOptions } from '~/api'
 import { queryClient } from '.'
@@ -24,35 +25,38 @@ function initAuthStore() {
 }
 
 export const useAuthStore = create<States & Actions>()(
-  immer(set => ({
-    ...initAuthStore(),
-    loginUser: async (params: LoginParams) => {
-      const res = await loginUser(params)
-      const cacheStore = useCacheStore.getState()
-      set((state) => {
-        state.userInfo = omit(res, ['accessToken'])
-        cacheStore.setToken(res.accessToken)
-      })
-    },
-    async infoUser() {
-      const data = await queryClient.ensureQueryData(userMeQueryOptions())
-      set((state) => {
-        state.userInfo = data
-      })
-    },
-    logoutUser: () => {
-      const cacheStore = useCacheStore.getState()
-      set((state) => {
-        const initStore = initAuthStore()
-        state.userInfo = initStore.userInfo
-        cacheStore.removeToken()
-      })
-      window.location.reload()
-    },
-    setUser: async (info: Required<States>['userInfo']) => {
-      set((state) => {
-        state.userInfo = info
-      })
-    },
-  })),
+  devtools(
+    immer(set => ({
+      ...initAuthStore(),
+      loginUser: async (params: LoginParams) => {
+        const res = await loginUser(params)
+        const cacheStore = useCacheStore.getState()
+        set((state) => {
+          state.userInfo = omit(res, ['accessToken'])
+          cacheStore.setToken(res.accessToken)
+        })
+      },
+      async infoUser() {
+        const data = await queryClient.ensureQueryData(userMeQueryOptions())
+        set((state) => {
+          state.userInfo = data
+        })
+      },
+      logoutUser: () => {
+        const cacheStore = useCacheStore.getState()
+        set((state) => {
+          const initStore = initAuthStore()
+          state.userInfo = initStore.userInfo
+          cacheStore.removeToken()
+        })
+        window.location.reload()
+      },
+      setUser: async (info: Required<States>['userInfo']) => {
+        set((state) => {
+          state.userInfo = info
+        })
+      },
+    })),
+    { name: 'auth' },
+  ),
 )

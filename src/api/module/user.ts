@@ -1,6 +1,8 @@
+import type { IFetchPagerParams, IQueryPagerParams } from '../common/pager.type'
 import type { IUserEntity, IUserList, LoginParams, LoginRes } from './user.type'
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 import { fetchClient } from '~/api/fetch'
+import { createUseQueryPagerOptions } from '../common/pager'
 
 const baseUrl = '/users'
 /**
@@ -17,6 +19,10 @@ export function fetchUser(id: IUserEntity['id']) {
 const USER_PAGER_LIMIT = 10
 export function fetchUserPager({ pageParam: offset }: { pageParam: number }): Promise<IUserList> {
   return fetchClient.get<IUserList>(`${baseUrl}?limit=${USER_PAGER_LIMIT}&skip=${offset}`)
+}
+
+export function fetchUserPager2(params: IFetchPagerParams) {
+  return fetchClient.get<IUserList>(baseUrl, params)
 }
 
 export function loginUser(params: LoginParams) {
@@ -38,8 +44,13 @@ export const userQueryListOptions = queryOptions({
 export function userQueryOptions(id: IUserEntity['id']) {
   return queryOptions({
     queryKey: ['user-list', { id }],
+    staleTime: 1000 * 60 * 60,
     queryFn: () => fetchUser(id),
   })
+}
+
+export function useQueryPager2Options(params: IQueryPagerParams) {
+  return createUseQueryPagerOptions('user-pager2', fetchUserPager2, params)
 }
 
 export const userQueryPagerOptions = infiniteQueryOptions({

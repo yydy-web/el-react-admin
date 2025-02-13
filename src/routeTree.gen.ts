@@ -25,6 +25,7 @@ import { Route as AuthTableIndexImport } from './routes/_auth/table/index'
 import { Route as AuthAboutIndexImport } from './routes/_auth/about/index'
 import { Route as AuthUserPagerImport } from './routes/_auth/user/pager'
 import { Route as AuthUserIdImport } from './routes/_auth/user/$id'
+import { Route as AuthTableUseAdminTableImport } from './routes/_auth/table/useAdminTable'
 import { Route as AuthAboutIdImport } from './routes/_auth/about/$id'
 import { Route as AuthNestingLayoutTestImport } from './routes/_auth/_nesting/layout-test'
 import { Route as AuthNestingLayoutImport } from './routes/_auth/_nesting/_layout'
@@ -133,6 +134,12 @@ const AuthUserIdRoute = AuthUserIdImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => AuthUserLazyRoute,
+} as any)
+
+const AuthTableUseAdminTableRoute = AuthTableUseAdminTableImport.update({
+  id: '/table/useAdminTable',
+  path: '/table/useAdminTable',
+  getParentRoute: () => AuthRoute,
 } as any)
 
 const AuthAboutIdRoute = AuthAboutIdImport.update({
@@ -309,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAboutIdImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/table/useAdminTable': {
+      id: '/_auth/table/useAdminTable'
+      path: '/table/useAdminTable'
+      fullPath: '/table/useAdminTable'
+      preLoaderRoute: typeof AuthTableUseAdminTableImport
+      parentRoute: typeof AuthImport
+    }
     '/_auth/user/$id': {
       id: '/_auth/user/$id'
       path: '/$id'
@@ -445,6 +459,7 @@ interface AuthRouteChildren {
   AuthgroupGroup2Route: typeof AuthgroupGroup2Route
   AuthgroupGroup3Route: typeof AuthgroupGroup3Route
   AuthAboutIdRoute: typeof AuthAboutIdRoute
+  AuthTableUseAdminTableRoute: typeof AuthTableUseAdminTableRoute
   AuthAboutIndexRoute: typeof AuthAboutIndexRoute
   AuthTableIndexRoute: typeof AuthTableIndexRoute
   AuthAboutValueCreateRoute: typeof AuthAboutValueCreateRoute
@@ -464,6 +479,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthgroupGroup2Route: AuthgroupGroup2Route,
   AuthgroupGroup3Route: AuthgroupGroup3Route,
   AuthAboutIdRoute: AuthAboutIdRoute,
+  AuthTableUseAdminTableRoute: AuthTableUseAdminTableRoute,
   AuthAboutIndexRoute: AuthAboutIndexRoute,
   AuthTableIndexRoute: AuthTableIndexRoute,
   AuthAboutValueCreateRoute: AuthAboutValueCreateRoute,
@@ -488,6 +504,7 @@ export interface FileRoutesByFullPath {
   '/group3': typeof AuthgroupGroup3Route
   '/layout-test': typeof AuthNestingLayoutTestRoute
   '/about/$id': typeof AuthAboutIdRoute
+  '/table/useAdminTable': typeof AuthTableUseAdminTableRoute
   '/user/$id': typeof AuthUserIdRoute
   '/user/pager': typeof AuthUserPagerRoute
   '/about': typeof AuthAboutIndexRoute
@@ -514,6 +531,7 @@ export interface FileRoutesByTo {
   '/group3': typeof AuthgroupGroup3Route
   '/layout-test': typeof AuthNestingLayoutTestRoute
   '/about/$id': typeof AuthAboutIdRoute
+  '/table/useAdminTable': typeof AuthTableUseAdminTableRoute
   '/user/$id': typeof AuthUserIdRoute
   '/user/pager': typeof AuthUserPagerRoute
   '/about': typeof AuthAboutIndexRoute
@@ -544,6 +562,7 @@ export interface FileRoutesById {
   '/_auth/_nesting/_layout': typeof AuthNestingLayoutRouteWithChildren
   '/_auth/_nesting/layout-test': typeof AuthNestingLayoutTestRoute
   '/_auth/about/$id': typeof AuthAboutIdRoute
+  '/_auth/table/useAdminTable': typeof AuthTableUseAdminTableRoute
   '/_auth/user/$id': typeof AuthUserIdRoute
   '/_auth/user/pager': typeof AuthUserPagerRoute
   '/_auth/about/': typeof AuthAboutIndexRoute
@@ -573,6 +592,7 @@ export interface FileRouteTypes {
     | '/group3'
     | '/layout-test'
     | '/about/$id'
+    | '/table/useAdminTable'
     | '/user/$id'
     | '/user/pager'
     | '/about'
@@ -598,6 +618,7 @@ export interface FileRouteTypes {
     | '/group3'
     | '/layout-test'
     | '/about/$id'
+    | '/table/useAdminTable'
     | '/user/$id'
     | '/user/pager'
     | '/about'
@@ -626,6 +647,7 @@ export interface FileRouteTypes {
     | '/_auth/_nesting/_layout'
     | '/_auth/_nesting/layout-test'
     | '/_auth/about/$id'
+    | '/_auth/table/useAdminTable'
     | '/_auth/user/$id'
     | '/_auth/user/pager'
     | '/_auth/about/'
@@ -683,6 +705,7 @@ export const routeTree = rootRoute
         "/_auth/(group)/group2",
         "/_auth/(group)/group3",
         "/_auth/about/$id",
+        "/_auth/table/useAdminTable",
         "/_auth/about/",
         "/_auth/table/",
         "/_auth/about/$value/create",
@@ -753,6 +776,10 @@ export const routeTree = rootRoute
     },
     "/_auth/about/$id": {
       "filePath": "_auth/about/$id.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/table/useAdminTable": {
+      "filePath": "_auth/table/useAdminTable.ts",
       "parent": "/_auth"
     },
     "/_auth/user/$id": {

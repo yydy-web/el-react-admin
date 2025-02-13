@@ -21,7 +21,7 @@ async function createParamsFetch<T>(
 
   const res = await fetch(
     Object.keys(params).length > 0
-      ? `${url}?${Object.entries(params).map(([k, v]) => `${k}=${v}`).join(',')}`
+      ? `${url}?${Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&')}`
       : url,
     {
       method,
