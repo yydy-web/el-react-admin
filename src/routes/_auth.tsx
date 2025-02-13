@@ -1,4 +1,4 @@
-import { AppShell, Avatar, Burger, Group, Menu, NavLink, ScrollArea } from '@mantine/core'
+import { ActionIcon, AppShell, Avatar, Burger, Group, Menu, NavLink, ScrollArea, useMantineColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { createFileRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router'
 import { useAuthStore } from '~/store'
@@ -31,10 +31,15 @@ function RouteComponent() {
   const { userInfo, logoutUser } = useAuthStore()
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true)
+  const { setColorScheme, colorScheme } = useMantineColorScheme()
 
   async function handleLogoutUser() {
     logoutUser()
     await router.invalidate()
+  }
+
+  function handleToggleTheme() {
+    setColorScheme(colorScheme === 'light' ? 'dark' : 'light')
   }
 
   return (
@@ -55,6 +60,9 @@ function RouteComponent() {
             logo
           </Group>
           <Group>
+            <ActionIcon variant="default" size={32} onClick={handleToggleTheme}>
+              <i className={colorScheme === 'light' ? 'icon-[icon-park-solid--moon]' : 'icon-[icon-park-solid--sun]'} />
+            </ActionIcon>
             <Menu shadow="md" width={200}>
               <Menu.Target>
                 <Avatar src={userInfo?.image} alt={userInfo?.firstName} />
