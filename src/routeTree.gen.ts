@@ -20,6 +20,7 @@ import { Route as AuthIndexImport } from './routes/_auth/index'
 import { Route as AuthPage2Import } from './routes/_auth/page2'
 import { Route as AuthPageImport } from './routes/_auth/page'
 import { Route as AuthIconImport } from './routes/_auth/icon'
+import { Route as AuthFormImport } from './routes/_auth/form'
 import { Route as AuthNestingImport } from './routes/_auth/_nesting'
 import { Route as AuthTableIndexImport } from './routes/_auth/table/index'
 import { Route as AuthAboutIndexImport } from './routes/_auth/about/index'
@@ -95,6 +96,12 @@ const AuthPageRoute = AuthPageImport.update({
 const AuthIconRoute = AuthIconImport.update({
   id: '/icon',
   path: '/icon',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthFormRoute = AuthFormImport.update({
+  id: '/form',
+  path: '/form',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -230,6 +237,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthNestingImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/form': {
+      id: '/_auth/form'
+      path: '/form'
+      fullPath: '/form'
+      preLoaderRoute: typeof AuthFormImport
       parentRoute: typeof AuthImport
     }
     '/_auth/icon': {
@@ -436,6 +450,7 @@ const AuthUserLazyRouteWithChildren = AuthUserLazyRoute._addFileChildren(
 
 interface AuthRouteChildren {
   AuthNestingRoute: typeof AuthNestingRouteWithChildren
+  AuthFormRoute: typeof AuthFormRoute
   AuthIconRoute: typeof AuthIconRoute
   AuthPageRoute: typeof AuthPageRoute
   AuthPage2Route: typeof AuthPage2Route
@@ -455,6 +470,7 @@ interface AuthRouteChildren {
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthNestingRoute: AuthNestingRouteWithChildren,
+  AuthFormRoute: AuthFormRoute,
   AuthIconRoute: AuthIconRoute,
   AuthPageRoute: AuthPageRoute,
   AuthPage2Route: AuthPage2Route,
@@ -478,6 +494,7 @@ export interface FileRoutesByFullPath {
   '/$page': typeof PageRoute
   '': typeof AuthNestingLayoutRouteWithChildren
   '/login': typeof LoginRoute
+  '/form': typeof AuthFormRoute
   '/icon': typeof AuthIconRoute
   '/page': typeof AuthPageRoute
   '/page2': typeof AuthPage2Route
@@ -505,6 +522,7 @@ export interface FileRoutesByTo {
   '/$page': typeof PageRoute
   '/login': typeof LoginRoute
   '': typeof AuthNestingLayoutRouteWithChildren
+  '/form': typeof AuthFormRoute
   '/icon': typeof AuthIconRoute
   '/page': typeof AuthPageRoute
   '/page2': typeof AuthPage2Route
@@ -533,6 +551,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/login': typeof LoginRoute
   '/_auth/_nesting': typeof AuthNestingRouteWithChildren
+  '/_auth/form': typeof AuthFormRoute
   '/_auth/icon': typeof AuthIconRoute
   '/_auth/page': typeof AuthPageRoute
   '/_auth/page2': typeof AuthPage2Route
@@ -563,6 +582,7 @@ export interface FileRouteTypes {
     | '/$page'
     | ''
     | '/login'
+    | '/form'
     | '/icon'
     | '/page'
     | '/page2'
@@ -589,6 +609,7 @@ export interface FileRouteTypes {
     | '/$page'
     | '/login'
     | ''
+    | '/form'
     | '/icon'
     | '/page'
     | '/page2'
@@ -615,6 +636,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/login'
     | '/_auth/_nesting'
+    | '/_auth/form'
     | '/_auth/icon'
     | '/_auth/page'
     | '/_auth/page2'
@@ -674,6 +696,7 @@ export const routeTree = rootRoute
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/_nesting",
+        "/_auth/form",
         "/_auth/icon",
         "/_auth/page",
         "/_auth/page2",
@@ -701,6 +724,10 @@ export const routeTree = rootRoute
         "/_auth/_nesting/_layout",
         "/_auth/_nesting/layout-test"
       ]
+    },
+    "/_auth/form": {
+      "filePath": "_auth/form.tsx",
+      "parent": "/_auth"
     },
     "/_auth/icon": {
       "filePath": "_auth/icon.tsx",

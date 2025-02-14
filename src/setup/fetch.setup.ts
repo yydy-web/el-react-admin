@@ -14,7 +14,7 @@ function fetchAuthIntercept(req: RequestInit) {
   return req
 }
 
-async function fetchResponseIntercepet(res: Response) {
+function fetchResponseIntercepet(res: Response) {
   if (res.status === 401) {
     useAuthStore.getState().logoutUser()
     throw new Error('unauthorized')

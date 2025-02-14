@@ -1,5 +1,7 @@
+import { last } from 'lodash-es'
+
 export type FetchRequestIntercept = (config: RequestInit) => RequestInit
-export type FetchResponseIntercept = (config: Response) => void
+export type FetchResponseIntercept = (config: Response) => Response
 
 export function patchFetch(
   requestIntercept: (FetchRequestIntercept | FetchRequestIntercept[]) = [],
@@ -22,10 +24,17 @@ export function patchFetch(
     requestIntercept = Array.isArray(requestIntercept) ? requestIntercept : [requestIntercept]
     requestIntercept.forEach(req => req(config))
 
-    const response = await originFetch(fetchUrl, config)
-
+    let response = await originFetch(fetchUrl, config)
     responseIntercept = Array.isArray(responseIntercept) ? responseIntercept : [responseIntercept]
-    responseIntercept.map(res => res(response))
+
+    try {
+      if (responseIntercept.length) {
+        response = last(responseIntercept.map(res => res(response)))!
+      }
+    }
+    catch (error) {
+      throw new Error(error as string)
+    }
 
     const json = () =>
       response

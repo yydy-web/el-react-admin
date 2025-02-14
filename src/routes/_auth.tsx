@@ -1,3 +1,4 @@
+import type { IAppConfig } from '~/utils/app.config'
 import { ActionIcon, AppShell, Avatar, Burger, Group, Menu, NavLink, ScrollArea, useMantineColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { createFileRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router'
@@ -8,23 +9,52 @@ export const Route = createFileRoute('/_auth')({
   component: RouteComponent,
   async beforeLoad({ context: { cookie }, location }) {
     if (!cookie) {
-      throw redirect({
-        to: '/login',
-        search: {
-          redirect: location.href,
-        },
-      })
+      redirectLogin(location.href)
     }
   },
-  async loader() {
-    const { userInfo, infoUser } = useAuthStore.getState()
+  async loader({ location }) {
+    const { userInfo, infoUser, logoutUser } = useAuthStore.getState()
     if (!userInfo) {
-      await infoUser()
+      try {
+        await infoUser()
+      }
+      catch {
+        logoutUser()
+        redirectLogin(location.href)
+      }
     }
     return userInfo
   },
   pendingComponent: () => <div>用户信息获取中...</div>,
 })
+
+function redirectLogin(currentPath: string) {
+  throw redirect({
+    to: '/login',
+    search: {
+      redirect: currentPath,
+    },
+  })
+}
+
+function NestsNavLink({ config: item }: { config: IAppConfig['routers'][0] }) {
+  return (
+    <NavLink
+      key={item.path}
+      description={`${item.title} description`}
+      leftSection={<i className={item.icon} />}
+      label={item.title}
+      to={item.path}
+      component={Link}
+    >
+      {
+        item.children?.map(item => (
+          <NestsNavLink key={item.path} config={item} />
+        ))
+      }
+    </NavLink>
+  )
+}
 
 function RouteComponent() {
   const router = useRouter()
@@ -77,18 +107,7 @@ function RouteComponent() {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md" component={ScrollArea}>
-        {
-          appConfig.routers.map(item => (
-            <NavLink
-              key={item.path}
-              description={`${item.title} description`}
-              leftSection={<i className={item.icon} />}
-              label={item.title}
-              to={item.path}
-              component={Link}
-            />
-          ))
-        }
+        {appConfig.routers.map(item => (<NestsNavLink config={item} key={item.path} />))}
       </AppShell.Navbar>
       <AppShell.Main>
         <Outlet />

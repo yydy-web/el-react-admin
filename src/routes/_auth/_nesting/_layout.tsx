@@ -9,9 +9,9 @@ const secondNestingList = [{ path: '/test2', title: 'test2' }, { path: '/test3/$
 function RouteComponent() {
   return (
     <div>
-      <div className="border-b">第二层嵌套路由</div>
+      嵌套路由
       <ul className="flex space-x-2">
-        { secondNestingList.map(item => (
+        {secondNestingList.map(item => (
           <li key={item.path}>
             <Link
               to={item.path}
@@ -19,10 +19,10 @@ function RouteComponent() {
               className=" border-b border-dashed border-blue-300"
               activeProps={{ className: ' font-bold' }}
             >
-              { item.title }
+              {item.title}
             </Link>
           </li>
-        )) }
+        ))}
       </ul>
       <Outlet></Outlet>
     </div>

@@ -1,9 +1,11 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query"
-import { MRT_ColumnDef, MRT_PaginationState, MRT_RowData, useMantineReactTable } from "mantine-react-table"
-import { useState } from "react"
-import { IQueryPagerParams } from "~/api"
+import type { UseQueryOptions } from '@tanstack/react-query'
+import type { MRT_ColumnDef, MRT_PaginationState, MRT_RowData } from 'mantine-react-table'
+import type { IQueryPagerParams } from '~/api'
+import { useQuery } from '@tanstack/react-query'
+import { useMantineReactTable } from 'mantine-react-table'
+import { useState } from 'react'
 
-export function useAdminTable<T  extends MRT_RowData>(columns: MRT_ColumnDef<T>[], fn: (params: IQueryPagerParams) => UseQueryOptions<T>) {
+export function useAdminTable<T extends MRT_RowData>(columns: MRT_ColumnDef<T>[], fn: (params: IQueryPagerParams) => UseQueryOptions<T>) {
   const [globalFilter, setGlobalFilter] = useState('')
   const [pagination, setPagination] = useState<MRT_PaginationState>({
     pageIndex: 0,

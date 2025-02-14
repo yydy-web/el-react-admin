@@ -33,6 +33,10 @@ export async function getUserMe() {
   return fetchClient.get<LoginRes>(`${baseUrl}/me`)
 }
 
+export async function addUser(data: Omit<IUserEntity, 'id'>) {
+  return fetchClient.post<void>(`${baseUrl}/add`, data)
+}
+
 /**
  * react query client
  */
