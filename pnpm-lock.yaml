@@ -20,9 +20,6 @@ importers:
       '@mantine/hooks':
         specifier: ^7.16.3
         version: 7.16.3(react@19.0.0)
-      '@tabler/icons-react':
-        specifier: ^3.30.0
-        version: 3.30.0(react@19.0.0)
       '@tailwindcss/postcss':
         specifier: ^4.0.6
         version: 4.0.6
@@ -32,9 +29,6 @@ importers:
       '@tanstack/react-router':
         specifier: ^1.105.0
         version: 1.105.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tanstack/react-table':
-        specifier: ^8.21.2
-        version: 8.21.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       classix:
         specifier: ^2.2.1
         version: 2.2.1
@@ -83,9 +77,6 @@ importers:
       react-scan:
         specifier: ^0.1.3
         version: 0.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      usehooks-ts:
-        specifier: ^3.1.1
-        version: 3.1.1(react@19.0.0)
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -1159,13 +1150,6 @@ packages:
       react: '>=16.8'
       react-dom: '>=16.8'
 
-  '@tanstack/react-table@8.21.2':
-    resolution: {integrity: sha512-11tNlEDTdIhMJba2RBH+ecJ9l1zgS2kjmexDPAraulc8jeNA4xocSNeyzextT0XJyASil4XsCYlJmf5jEWAtYg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16.8'
-      react-dom: '>=16.8'
-
   '@tanstack/react-virtual@3.11.2':
     resolution: {integrity: sha512-OuFzMXPF4+xZgx8UzJha0AieuMihhhaWG0tCqpp6tDzlFwOmNBPYMuLOtMJ1Tr4pXLHmgjcWhG6RlknY2oNTdQ==}
     peerDependencies:
@@ -1224,10 +1208,6 @@ packages:
 
   '@tanstack/table-core@8.20.5':
     resolution: {integrity: sha512-P9dF7XbibHph2PFRz8gfBKEXEY/HJPOhym8CHmjF8y3q5mWpKx9xtZapXQUWCgkqvsK0R46Azuz+VaxD4Xl+Tg==}
-    engines: {node: '>=12'}
-
-  '@tanstack/table-core@8.21.2':
-    resolution: {integrity: sha512-uvXk/U4cBiFMxt+p9/G7yUWI/UbHYbyghLCjlpWZ3mLeIZiUBSKcUnw9UnKkdRz7Z/N4UBuFLWQdJCjUe7HjvA==}
     engines: {node: '>=12'}
 
   '@tanstack/virtual-core@3.11.2':
@@ -2779,9 +2759,6 @@ packages:
   lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
 
-  lodash.debounce@4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
@@ -3838,12 +3815,6 @@ packages:
     resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  usehooks-ts@3.1.1:
-    resolution: {integrity: sha512-I4diPp9Cq6ieSUH2wu+fDAVQO43xwtulo+fKEidHUwZPnYImbtkTjzIJYcDcJqxgmX31GVqNFURodvcgHcW0pA==}
-    engines: {node: '>=16.15.0'}
-    peerDependencies:
-      react: ^16.8.0  || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -5110,12 +5081,6 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@tanstack/react-table@8.21.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      '@tanstack/table-core': 8.21.2
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-
   '@tanstack/react-virtual@3.11.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@tanstack/virtual-core': 3.11.2
@@ -5181,8 +5146,6 @@ snapshots:
   '@tanstack/store@0.7.0': {}
 
   '@tanstack/table-core@8.20.5': {}
-
-  '@tanstack/table-core@8.21.2': {}
 
   '@tanstack/virtual-core@3.11.2': {}
 
@@ -6971,8 +6934,6 @@ snapshots:
 
   lodash-es@4.17.21: {}
 
-  lodash.debounce@4.0.8: {}
-
   lodash.merge@4.6.2: {}
 
   lodash.unionby@4.8.0: {}
@@ -8171,11 +8132,6 @@ snapshots:
 
   use-sync-external-store@1.4.0(react@19.0.0):
     dependencies:
-      react: 19.0.0
-
-  usehooks-ts@3.1.1(react@19.0.0):
-    dependencies:
-      lodash.debounce: 4.0.8
       react: 19.0.0
 
   util-deprecate@1.0.2: {}

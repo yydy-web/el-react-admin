@@ -1,58 +1,71 @@
-import { Button, Group, TextInput } from '@mantine/core'
-import { useForm } from '@mantine/form'
-import { useMutation } from '@tanstack/react-query'
+import { Button, Group, Select, TextInput } from '@mantine/core'
 import { createFileRoute } from '@tanstack/react-router'
-import { addUser } from '~/api'
+import { useState } from 'react'
+import { addUser, genderValues, putUser, userEntitySchema, userQueryOptions } from '~/api'
+import { useAdminForm } from '~/hooks'
+import { useAuthStore } from '~/store'
 
 export const Route = createFileRoute('/_auth/form')({
   component: RouteComponent,
 })
 
-interface IUseAdminFormOptions {
-  mutationKey: Parameters<typeof useMutation>[0]['mutationKey']
-  action: (...args: any[]) => Promise<unknown>
-}
-
-function useAdminForm<T extends Record<string, any>>(options: IUseAdminFormOptions) {
-  const addUserAction = useMutation({
-    mutationKey: options.mutationKey,
-    mutationFn: options.action,
-  })
-
-  const form = useForm<T>({
-    initialValues: {
-    } as T,
-  })
-
-  async function handleSubmitAction(data: T) {
-    await addUserAction.mutateAsync(data)
-  }
-  return {
-    form,
-    isLoading: addUserAction.isPending,
-    handleSubmitAction,
-  }
-}
-
 function RouteComponent() {
-  const { form, isLoading, handleSubmitAction } = useAdminForm({
-    mutationKey: ['addUser'],
+  const { userInfo } = useAuthStore()
+  const [userId, setUserId] = useState<number>()
+
+  const { form, isLoading, handleSubmitAction, query } = useAdminForm({
+    mutationKey: ['user'],
     action: addUser,
+    putAction: putUser,
+    validateSchema: userEntitySchema,
+    carray: userId,
+    queryOptions: userQueryOptions,
   })
+
+  function getCurrentUser() {
+    setUserId(userInfo?.id)
+  }
 
   return (
     <div>
+      <Button onClick={getCurrentUser} loading={query.isLoading}>
+        获取当前用户登录信息
+      </Button>
       <form onSubmit={form.onSubmit(handleSubmitAction)}>
         <TextInput
           withAsterisk
           label="First Name"
-          placeholder="your@firstName.com"
+          placeholder="firstName..."
           key={form.key('firstName')}
           {...form.getInputProps('firstName')}
         />
 
+        <TextInput
+          withAsterisk
+          label="lastName"
+          placeholder="lastName..."
+          key={form.key('lastName')}
+          {...form.getInputProps('lastName')}
+        />
+
+        <TextInput
+          withAsterisk
+          label="Email"
+          placeholder="Email..."
+          key={form.key('email')}
+          {...form.getInputProps('email')}
+        />
+
+        <Select
+          label="gender"
+          placeholder="gender..."
+          data={genderValues}
+          key={form.key('gender')}
+          {...form.getInputProps('gender')}
+        />
+
         <Group justify="flex-end" mt="md">
-          <Button type="submit" loading={isLoading}>Submit</Button>
+          <Button type="submit" loading={isLoading} fullWidth>新增</Button>
         </Group>
       </form>
     </div>

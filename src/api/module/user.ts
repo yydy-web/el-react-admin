@@ -2,6 +2,7 @@ import type { IFetchPagerParams, IQueryPagerParams } from '../common/pager.type'
 import type { IUserEntity, IUserList, LoginParams, LoginRes } from './user.type'
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
 import { fetchClient } from '~/api/fetch'
+import { createUseQueryFindOptions } from '../common'
 import { createUseQueryPagerOptions } from '../common/pager'
 
 const baseUrl = '/users'
@@ -37,6 +38,10 @@ export async function addUser(data: Omit<IUserEntity, 'id'>) {
   return fetchClient.post<void>(`${baseUrl}/add`, data)
 }
 
+export async function putUser(data: IUserEntity) {
+  return fetchClient.put<void>(`${baseUrl}/put`, data)
+}
+
 /**
  * react query client
  */
@@ -45,12 +50,8 @@ export const userQueryListOptions = queryOptions({
   queryFn: fetchUserList,
 })
 
-export function userQueryOptions(id: IUserEntity['id']) {
-  return queryOptions({
-    queryKey: ['user-list', { id }],
-    staleTime: 1000 * 60 * 60,
-    queryFn: () => fetchUser(id),
-  })
+export function userQueryOptions(id?: number) {
+  return createUseQueryFindOptions('user-find', fetchUser, id)
 }
 
 export function useQueryPager2Options(params: IQueryPagerParams) {
