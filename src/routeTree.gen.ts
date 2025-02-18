@@ -23,6 +23,7 @@ import { Route as AuthIconImport } from './routes/_auth/icon'
 import { Route as AuthFormImport } from './routes/_auth/form'
 import { Route as AuthNestingImport } from './routes/_auth/_nesting'
 import { Route as AuthTableIndexImport } from './routes/_auth/table/index'
+import { Route as AuthJotaiIndexImport } from './routes/_auth/jotai/index'
 import { Route as AuthAboutIndexImport } from './routes/_auth/about/index'
 import { Route as AuthUserPagerImport } from './routes/_auth/user/pager'
 import { Route as AuthUserIdImport } from './routes/_auth/user/$id'
@@ -121,6 +122,12 @@ const AuthUserIndexLazyRoute = AuthUserIndexLazyImport.update({
 const AuthTableIndexRoute = AuthTableIndexImport.update({
   id: '/table/',
   path: '/table/',
+  getParentRoute: () => AuthRoute,
+} as any)
+
+const AuthJotaiIndexRoute = AuthJotaiIndexImport.update({
+  id: '/jotai/',
+  path: '/jotai/',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -344,6 +351,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAboutIndexImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/jotai/': {
+      id: '/_auth/jotai/'
+      path: '/jotai'
+      fullPath: '/jotai'
+      preLoaderRoute: typeof AuthJotaiIndexImport
+      parentRoute: typeof AuthImport
+    }
     '/_auth/table/': {
       id: '/_auth/table/'
       path: '/table'
@@ -461,6 +475,7 @@ interface AuthRouteChildren {
   AuthgroupGroup3Route: typeof AuthgroupGroup3Route
   AuthAboutIdRoute: typeof AuthAboutIdRoute
   AuthAboutIndexRoute: typeof AuthAboutIndexRoute
+  AuthJotaiIndexRoute: typeof AuthJotaiIndexRoute
   AuthTableIndexRoute: typeof AuthTableIndexRoute
   AuthAboutValueCreateRoute: typeof AuthAboutValueCreateRoute
   AuthAboutNameNameRoute: typeof AuthAboutNameNameRoute
@@ -481,6 +496,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthgroupGroup3Route: AuthgroupGroup3Route,
   AuthAboutIdRoute: AuthAboutIdRoute,
   AuthAboutIndexRoute: AuthAboutIndexRoute,
+  AuthJotaiIndexRoute: AuthJotaiIndexRoute,
   AuthTableIndexRoute: AuthTableIndexRoute,
   AuthAboutValueCreateRoute: AuthAboutValueCreateRoute,
   AuthAboutNameNameRoute: AuthAboutNameNameRoute,
@@ -508,6 +524,7 @@ export interface FileRoutesByFullPath {
   '/user/$id': typeof AuthUserIdRoute
   '/user/pager': typeof AuthUserPagerRoute
   '/about': typeof AuthAboutIndexRoute
+  '/jotai': typeof AuthJotaiIndexRoute
   '/table': typeof AuthTableIndexRoute
   '/user/': typeof AuthUserIndexLazyRoute
   '/test2': typeof AuthNestingLayoutTest2Route
@@ -535,6 +552,7 @@ export interface FileRoutesByTo {
   '/user/$id': typeof AuthUserIdRoute
   '/user/pager': typeof AuthUserPagerRoute
   '/about': typeof AuthAboutIndexRoute
+  '/jotai': typeof AuthJotaiIndexRoute
   '/table': typeof AuthTableIndexRoute
   '/user': typeof AuthUserIndexLazyRoute
   '/test2': typeof AuthNestingLayoutTest2Route
@@ -566,6 +584,7 @@ export interface FileRoutesById {
   '/_auth/user/$id': typeof AuthUserIdRoute
   '/_auth/user/pager': typeof AuthUserPagerRoute
   '/_auth/about/': typeof AuthAboutIndexRoute
+  '/_auth/jotai/': typeof AuthJotaiIndexRoute
   '/_auth/table/': typeof AuthTableIndexRoute
   '/_auth/user/': typeof AuthUserIndexLazyRoute
   '/_auth/_nesting/_layout/test2': typeof AuthNestingLayoutTest2Route
@@ -596,6 +615,7 @@ export interface FileRouteTypes {
     | '/user/$id'
     | '/user/pager'
     | '/about'
+    | '/jotai'
     | '/table'
     | '/user/'
     | '/test2'
@@ -622,6 +642,7 @@ export interface FileRouteTypes {
     | '/user/$id'
     | '/user/pager'
     | '/about'
+    | '/jotai'
     | '/table'
     | '/user'
     | '/test2'
@@ -651,6 +672,7 @@ export interface FileRouteTypes {
     | '/_auth/user/$id'
     | '/_auth/user/pager'
     | '/_auth/about/'
+    | '/_auth/jotai/'
     | '/_auth/table/'
     | '/_auth/user/'
     | '/_auth/_nesting/_layout/test2'
@@ -707,6 +729,7 @@ export const routeTree = rootRoute
         "/_auth/(group)/group3",
         "/_auth/about/$id",
         "/_auth/about/",
+        "/_auth/jotai/",
         "/_auth/table/",
         "/_auth/about/$value/create",
         "/_auth/about/name/$name",
@@ -792,6 +815,10 @@ export const routeTree = rootRoute
     },
     "/_auth/about/": {
       "filePath": "_auth/about/index.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/jotai/": {
+      "filePath": "_auth/jotai/index.tsx",
       "parent": "/_auth"
     },
     "/_auth/table/": {

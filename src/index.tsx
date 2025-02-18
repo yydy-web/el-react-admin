@@ -19,11 +19,13 @@ function bootstrap() {
   if (rootEl) {
     const root = ReactDOM.createRoot(rootEl)
     root.render(
-      <QueryClientProvider client={queryClient}>
-        <MantineProvider>
-          <App />
-        </MantineProvider>
-      </QueryClientProvider>,
+      <>
+        <QueryClientProvider client={queryClient}>
+          <MantineProvider>
+            <App />
+          </MantineProvider>
+        </QueryClientProvider>
+      </>,
     )
   }
 }
