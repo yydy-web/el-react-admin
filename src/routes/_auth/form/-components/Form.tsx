@@ -1,18 +1,12 @@
-import { Button, Group, Select, TextInput } from '@mantine/core'
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { Box, Button, Group, LoadingOverlay, Select, TextInput } from '@mantine/core'
 import { addUser, genderValues, putUser, userEntitySchema, userQueryOptions } from '~/api'
 import { useAdminForm } from '~/hooks'
-import { useAuthStore } from '~/store'
 
-export const Route = createFileRoute('/_auth/form')({
-  component: RouteComponent,
-})
+interface IUserFormProps {
+  userId?: number
+}
 
-function RouteComponent() {
-  const { userInfo } = useAuthStore()
-  const [userId, setUserId] = useState<number>()
-
+export function UserForm({ userId }: IUserFormProps) {
   const { form, isLoading, handleSubmitAction, query } = useAdminForm({
     mutationKey: ['user'],
     action: addUser,
@@ -22,15 +16,14 @@ function RouteComponent() {
     queryOptions: userQueryOptions,
   })
 
-  function getCurrentUser() {
-    setUserId(userInfo?.id)
-  }
-
   return (
-    <div>
-      <Button onClick={getCurrentUser} loading={query.isLoading}>
-        获取当前用户登录信息
-      </Button>
+    <Box pos="relative">
+      <LoadingOverlay
+        visible={query.isLoading}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+        loaderProps={{ color: 'pink', type: 'bars' }}
+      />
       <form onSubmit={form.onSubmit(handleSubmitAction)}>
         <TextInput
           withAsterisk
@@ -68,6 +61,6 @@ function RouteComponent() {
           <Button type="submit" loading={isLoading} fullWidth>新增</Button>
         </Group>
       </form>
-    </div>
+    </Box>
   )
 }

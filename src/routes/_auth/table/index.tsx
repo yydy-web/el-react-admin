@@ -16,6 +16,10 @@ function RouteComponent() {
   const columns = useMemo<MRT_ColumnDef<IUserEntity>[]>(
     () => [
       {
+        accessorKey: 'id',
+        header: 'id',
+      },
+      {
         accessorKey: 'firstName',
         header: 'firstName',
       },

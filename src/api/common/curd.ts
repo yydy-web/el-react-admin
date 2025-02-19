@@ -8,6 +8,7 @@ export function createUseQueryFindOptions<T>(
 ) {
   return queryOptions({
     enabled: !!id,
+    gcTime: 0,
     queryKey: [queryKey, { id }],
     queryFn: () => fn(id!),
   }) as UseQueryOptions<T>

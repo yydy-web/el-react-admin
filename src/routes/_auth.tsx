@@ -1,7 +1,7 @@
 import type { IAppConfig } from '~/utils/app.config'
 import { ActionIcon, AppShell, Avatar, Burger, Group, Menu, NavLink, ScrollArea, useMantineColorScheme } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { createFileRoute, Link, Outlet, redirect, useRouter } from '@tanstack/react-router'
+import { createFileRoute, Link, Outlet, redirect, useLocation, useRouter } from '@tanstack/react-router'
 import { useAuthStore } from '~/store'
 import appConfig from '~/utils/app.config'
 
@@ -38,10 +38,11 @@ function redirectLogin(currentPath: string) {
 }
 
 function NestsNavLink({ config: item }: { config: IAppConfig['routers'][0] }) {
+  const params = useLocation()
   return (
     <NavLink
       key={item.path}
-      description={`${item.title} description`}
+      defaultOpened={params.pathname.startsWith(item.path)}
       leftSection={<i className={item.icon} />}
       label={item.title}
       to={item.path}

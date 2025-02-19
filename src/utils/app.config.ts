@@ -16,7 +16,15 @@ export default {
   routers: [
     { path: '/', title: '首页', icon: 'icon-[line-md--home]' },
     { path: '/table', title: 'react table', icon: 'icon-[hugeicons--table]' },
-    { path: '/form', title: 'react form', icon: 'icon-[fluent--form-48-regular]' },
+    {
+      path: '/form',
+      title: 'react form',
+      icon: 'icon-[fluent--form-48-regular]',
+      children: [
+        { path: '/form/add', title: '新增用户', icon: 'icon-[ant-design--form-outlined]' },
+        { path: '/form/edit/1', title: '修改用户', icon: 'icon-[ant-design--form-outlined]' },
+      ],
+    },
     { path: '/store', title: 'zustand 缓存', icon: 'icon-[octicon--cache-24]' },
     { path: '/user', title: 'react query', icon: 'icon-[logos--react-query]' },
     {
@@ -33,6 +41,20 @@ export default {
             { path: '/test2', title: '子路由2-1', icon: 'icon-[ant-design--layout-outlined]' },
             { path: '/test3/1', title: '子路由2-2', icon: 'icon-[ant-design--layout-outlined]' },
           ],
+        },
+      ],
+    },
+    {
+      path: '/nesting',
+      title: '路由嵌套激活',
+      icon: 'icon-[ant-design--layout-outlined]',
+      children: [
+        { path: '/nesting/layout', title: '子路由1', icon: 'icon-[ant-design--layout-outlined]' },
+        {
+          path: '/nesting/layout2',
+          title: '子路由2',
+          icon: 'icon-[ant-design--layout-outlined]',
+          children: [{ path: '/nesting/layout2/layout', title: '子路由2-1', icon: 'icon-[ant-design--layout-outlined]' }],
         },
       ],
     },

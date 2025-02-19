@@ -20,13 +20,13 @@ import { Route as AuthIndexImport } from './routes/_auth/index'
 import { Route as AuthPage2Import } from './routes/_auth/page2'
 import { Route as AuthPageImport } from './routes/_auth/page'
 import { Route as AuthIconImport } from './routes/_auth/icon'
-import { Route as AuthFormImport } from './routes/_auth/form'
 import { Route as AuthNestingImport } from './routes/_auth/_nesting'
 import { Route as AuthTableIndexImport } from './routes/_auth/table/index'
 import { Route as AuthJotaiIndexImport } from './routes/_auth/jotai/index'
 import { Route as AuthAboutIndexImport } from './routes/_auth/about/index'
 import { Route as AuthUserPagerImport } from './routes/_auth/user/pager'
 import { Route as AuthUserIdImport } from './routes/_auth/user/$id'
+import { Route as AuthFormAddImport } from './routes/_auth/form/add'
 import { Route as AuthAboutIdImport } from './routes/_auth/about/$id'
 import { Route as AuthNestingLayoutTestImport } from './routes/_auth/_nesting/layout-test'
 import { Route as AuthNestingLayoutImport } from './routes/_auth/_nesting/_layout'
@@ -34,9 +34,14 @@ import { Route as AuthgroupGroup3Import } from './routes/_auth/(group)/group3'
 import { Route as AuthgroupGroup2Import } from './routes/_auth/(group)/group2'
 import { Route as AuthAboutNameIndexImport } from './routes/_auth/about/name/index'
 import { Route as AuthAboutValueIndexImport } from './routes/_auth/about/$value/index'
+import { Route as AuthNestingNestingIndexImport } from './routes/_auth/_nesting/nesting/index'
+import { Route as AuthFormEditIdImport } from './routes/_auth/form/edit.$id'
 import { Route as AuthAboutNameNameImport } from './routes/_auth/about/name/$name'
 import { Route as AuthAboutValueCreateImport } from './routes/_auth/about/$value/create'
+import { Route as AuthNestingNestingLayout2Import } from './routes/_auth/_nesting/nesting/layout2'
+import { Route as AuthNestingNestingLayoutImport } from './routes/_auth/_nesting/nesting/layout'
 import { Route as AuthNestingLayoutTest2Import } from './routes/_auth/_nesting/_layout/test2'
+import { Route as AuthNestingNestingLayout2LayoutImport } from './routes/_auth/_nesting/nesting/layout2/layout'
 import { Route as AuthNestingLayoutTest3IdImport } from './routes/_auth/_nesting/_layout/test3.$id'
 
 // Create Virtual Routes
@@ -100,12 +105,6 @@ const AuthIconRoute = AuthIconImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
-const AuthFormRoute = AuthFormImport.update({
-  id: '/form',
-  path: '/form',
-  getParentRoute: () => AuthRoute,
-} as any)
-
 const AuthNestingRoute = AuthNestingImport.update({
   id: '/_nesting',
   getParentRoute: () => AuthRoute,
@@ -149,6 +148,12 @@ const AuthUserIdRoute = AuthUserIdImport.update({
   getParentRoute: () => AuthUserLazyRoute,
 } as any)
 
+const AuthFormAddRoute = AuthFormAddImport.update({
+  id: '/form/add',
+  path: '/form/add',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 const AuthAboutIdRoute = AuthAboutIdImport.update({
   id: '/about/$id',
   path: '/about/$id',
@@ -190,6 +195,18 @@ const AuthAboutValueIndexRoute = AuthAboutValueIndexImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
+const AuthNestingNestingIndexRoute = AuthNestingNestingIndexImport.update({
+  id: '/nesting/',
+  path: '/nesting/',
+  getParentRoute: () => AuthNestingRoute,
+} as any)
+
+const AuthFormEditIdRoute = AuthFormEditIdImport.update({
+  id: '/form/edit/$id',
+  path: '/form/edit/$id',
+  getParentRoute: () => AuthRoute,
+} as any)
+
 const AuthAboutNameNameRoute = AuthAboutNameNameImport.update({
   id: '/about/name/$name',
   path: '/about/name/$name',
@@ -202,11 +219,30 @@ const AuthAboutValueCreateRoute = AuthAboutValueCreateImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
+const AuthNestingNestingLayout2Route = AuthNestingNestingLayout2Import.update({
+  id: '/nesting/layout2',
+  path: '/nesting/layout2',
+  getParentRoute: () => AuthNestingRoute,
+} as any)
+
+const AuthNestingNestingLayoutRoute = AuthNestingNestingLayoutImport.update({
+  id: '/nesting/layout',
+  path: '/nesting/layout',
+  getParentRoute: () => AuthNestingRoute,
+} as any)
+
 const AuthNestingLayoutTest2Route = AuthNestingLayoutTest2Import.update({
   id: '/test2',
   path: '/test2',
   getParentRoute: () => AuthNestingLayoutRoute,
 } as any)
+
+const AuthNestingNestingLayout2LayoutRoute =
+  AuthNestingNestingLayout2LayoutImport.update({
+    id: '/layout',
+    path: '/layout',
+    getParentRoute: () => AuthNestingNestingLayout2Route,
+  } as any)
 
 const AuthNestingLayoutTest3IdRoute = AuthNestingLayoutTest3IdImport.update({
   id: '/test3/$id',
@@ -244,13 +280,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AuthNestingImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/form': {
-      id: '/_auth/form'
-      path: '/form'
-      fullPath: '/form'
-      preLoaderRoute: typeof AuthFormImport
       parentRoute: typeof AuthImport
     }
     '/_auth/icon': {
@@ -330,6 +359,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAboutIdImport
       parentRoute: typeof AuthImport
     }
+    '/_auth/form/add': {
+      id: '/_auth/form/add'
+      path: '/form/add'
+      fullPath: '/form/add'
+      preLoaderRoute: typeof AuthFormAddImport
+      parentRoute: typeof AuthImport
+    }
     '/_auth/user/$id': {
       id: '/_auth/user/$id'
       path: '/$id'
@@ -379,6 +415,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthNestingLayoutTest2Import
       parentRoute: typeof AuthNestingLayoutImport
     }
+    '/_auth/_nesting/nesting/layout': {
+      id: '/_auth/_nesting/nesting/layout'
+      path: '/nesting/layout'
+      fullPath: '/nesting/layout'
+      preLoaderRoute: typeof AuthNestingNestingLayoutImport
+      parentRoute: typeof AuthNestingImport
+    }
+    '/_auth/_nesting/nesting/layout2': {
+      id: '/_auth/_nesting/nesting/layout2'
+      path: '/nesting/layout2'
+      fullPath: '/nesting/layout2'
+      preLoaderRoute: typeof AuthNestingNestingLayout2Import
+      parentRoute: typeof AuthNestingImport
+    }
     '/_auth/about/$value/create': {
       id: '/_auth/about/$value/create'
       path: '/about/$value/create'
@@ -392,6 +442,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/about/name/$name'
       preLoaderRoute: typeof AuthAboutNameNameImport
       parentRoute: typeof AuthImport
+    }
+    '/_auth/form/edit/$id': {
+      id: '/_auth/form/edit/$id'
+      path: '/form/edit/$id'
+      fullPath: '/form/edit/$id'
+      preLoaderRoute: typeof AuthFormEditIdImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/_nesting/nesting/': {
+      id: '/_auth/_nesting/nesting/'
+      path: '/nesting'
+      fullPath: '/nesting'
+      preLoaderRoute: typeof AuthNestingNestingIndexImport
+      parentRoute: typeof AuthNestingImport
     }
     '/_auth/about/$value/': {
       id: '/_auth/about/$value/'
@@ -414,6 +478,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthNestingLayoutTest3IdImport
       parentRoute: typeof AuthNestingLayoutImport
     }
+    '/_auth/_nesting/nesting/layout2/layout': {
+      id: '/_auth/_nesting/nesting/layout2/layout'
+      path: '/layout'
+      fullPath: '/nesting/layout2/layout'
+      preLoaderRoute: typeof AuthNestingNestingLayout2LayoutImport
+      parentRoute: typeof AuthNestingNestingLayout2Import
+    }
   }
 }
 
@@ -432,14 +503,34 @@ const AuthNestingLayoutRouteChildren: AuthNestingLayoutRouteChildren = {
 const AuthNestingLayoutRouteWithChildren =
   AuthNestingLayoutRoute._addFileChildren(AuthNestingLayoutRouteChildren)
 
+interface AuthNestingNestingLayout2RouteChildren {
+  AuthNestingNestingLayout2LayoutRoute: typeof AuthNestingNestingLayout2LayoutRoute
+}
+
+const AuthNestingNestingLayout2RouteChildren: AuthNestingNestingLayout2RouteChildren =
+  {
+    AuthNestingNestingLayout2LayoutRoute: AuthNestingNestingLayout2LayoutRoute,
+  }
+
+const AuthNestingNestingLayout2RouteWithChildren =
+  AuthNestingNestingLayout2Route._addFileChildren(
+    AuthNestingNestingLayout2RouteChildren,
+  )
+
 interface AuthNestingRouteChildren {
   AuthNestingLayoutRoute: typeof AuthNestingLayoutRouteWithChildren
   AuthNestingLayoutTestRoute: typeof AuthNestingLayoutTestRoute
+  AuthNestingNestingLayoutRoute: typeof AuthNestingNestingLayoutRoute
+  AuthNestingNestingLayout2Route: typeof AuthNestingNestingLayout2RouteWithChildren
+  AuthNestingNestingIndexRoute: typeof AuthNestingNestingIndexRoute
 }
 
 const AuthNestingRouteChildren: AuthNestingRouteChildren = {
   AuthNestingLayoutRoute: AuthNestingLayoutRouteWithChildren,
   AuthNestingLayoutTestRoute: AuthNestingLayoutTestRoute,
+  AuthNestingNestingLayoutRoute: AuthNestingNestingLayoutRoute,
+  AuthNestingNestingLayout2Route: AuthNestingNestingLayout2RouteWithChildren,
+  AuthNestingNestingIndexRoute: AuthNestingNestingIndexRoute,
 }
 
 const AuthNestingRouteWithChildren = AuthNestingRoute._addFileChildren(
@@ -464,7 +555,6 @@ const AuthUserLazyRouteWithChildren = AuthUserLazyRoute._addFileChildren(
 
 interface AuthRouteChildren {
   AuthNestingRoute: typeof AuthNestingRouteWithChildren
-  AuthFormRoute: typeof AuthFormRoute
   AuthIconRoute: typeof AuthIconRoute
   AuthPageRoute: typeof AuthPageRoute
   AuthPage2Route: typeof AuthPage2Route
@@ -474,18 +564,19 @@ interface AuthRouteChildren {
   AuthgroupGroup2Route: typeof AuthgroupGroup2Route
   AuthgroupGroup3Route: typeof AuthgroupGroup3Route
   AuthAboutIdRoute: typeof AuthAboutIdRoute
+  AuthFormAddRoute: typeof AuthFormAddRoute
   AuthAboutIndexRoute: typeof AuthAboutIndexRoute
   AuthJotaiIndexRoute: typeof AuthJotaiIndexRoute
   AuthTableIndexRoute: typeof AuthTableIndexRoute
   AuthAboutValueCreateRoute: typeof AuthAboutValueCreateRoute
   AuthAboutNameNameRoute: typeof AuthAboutNameNameRoute
+  AuthFormEditIdRoute: typeof AuthFormEditIdRoute
   AuthAboutValueIndexRoute: typeof AuthAboutValueIndexRoute
   AuthAboutNameIndexRoute: typeof AuthAboutNameIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthNestingRoute: AuthNestingRouteWithChildren,
-  AuthFormRoute: AuthFormRoute,
   AuthIconRoute: AuthIconRoute,
   AuthPageRoute: AuthPageRoute,
   AuthPage2Route: AuthPage2Route,
@@ -495,11 +586,13 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthgroupGroup2Route: AuthgroupGroup2Route,
   AuthgroupGroup3Route: AuthgroupGroup3Route,
   AuthAboutIdRoute: AuthAboutIdRoute,
+  AuthFormAddRoute: AuthFormAddRoute,
   AuthAboutIndexRoute: AuthAboutIndexRoute,
   AuthJotaiIndexRoute: AuthJotaiIndexRoute,
   AuthTableIndexRoute: AuthTableIndexRoute,
   AuthAboutValueCreateRoute: AuthAboutValueCreateRoute,
   AuthAboutNameNameRoute: AuthAboutNameNameRoute,
+  AuthFormEditIdRoute: AuthFormEditIdRoute,
   AuthAboutValueIndexRoute: AuthAboutValueIndexRoute,
   AuthAboutNameIndexRoute: AuthAboutNameIndexRoute,
 }
@@ -510,7 +603,6 @@ export interface FileRoutesByFullPath {
   '/$page': typeof PageRoute
   '': typeof AuthNestingLayoutRouteWithChildren
   '/login': typeof LoginRoute
-  '/form': typeof AuthFormRoute
   '/icon': typeof AuthIconRoute
   '/page': typeof AuthPageRoute
   '/page2': typeof AuthPage2Route
@@ -521,6 +613,7 @@ export interface FileRoutesByFullPath {
   '/group3': typeof AuthgroupGroup3Route
   '/layout-test': typeof AuthNestingLayoutTestRoute
   '/about/$id': typeof AuthAboutIdRoute
+  '/form/add': typeof AuthFormAddRoute
   '/user/$id': typeof AuthUserIdRoute
   '/user/pager': typeof AuthUserPagerRoute
   '/about': typeof AuthAboutIndexRoute
@@ -528,18 +621,22 @@ export interface FileRoutesByFullPath {
   '/table': typeof AuthTableIndexRoute
   '/user/': typeof AuthUserIndexLazyRoute
   '/test2': typeof AuthNestingLayoutTest2Route
+  '/nesting/layout': typeof AuthNestingNestingLayoutRoute
+  '/nesting/layout2': typeof AuthNestingNestingLayout2RouteWithChildren
   '/about/$value/create': typeof AuthAboutValueCreateRoute
   '/about/name/$name': typeof AuthAboutNameNameRoute
+  '/form/edit/$id': typeof AuthFormEditIdRoute
+  '/nesting': typeof AuthNestingNestingIndexRoute
   '/about/$value': typeof AuthAboutValueIndexRoute
   '/about/name': typeof AuthAboutNameIndexRoute
   '/test3/$id': typeof AuthNestingLayoutTest3IdRoute
+  '/nesting/layout2/layout': typeof AuthNestingNestingLayout2LayoutRoute
 }
 
 export interface FileRoutesByTo {
   '/$page': typeof PageRoute
   '/login': typeof LoginRoute
   '': typeof AuthNestingLayoutRouteWithChildren
-  '/form': typeof AuthFormRoute
   '/icon': typeof AuthIconRoute
   '/page': typeof AuthPageRoute
   '/page2': typeof AuthPage2Route
@@ -549,6 +646,7 @@ export interface FileRoutesByTo {
   '/group3': typeof AuthgroupGroup3Route
   '/layout-test': typeof AuthNestingLayoutTestRoute
   '/about/$id': typeof AuthAboutIdRoute
+  '/form/add': typeof AuthFormAddRoute
   '/user/$id': typeof AuthUserIdRoute
   '/user/pager': typeof AuthUserPagerRoute
   '/about': typeof AuthAboutIndexRoute
@@ -556,11 +654,16 @@ export interface FileRoutesByTo {
   '/table': typeof AuthTableIndexRoute
   '/user': typeof AuthUserIndexLazyRoute
   '/test2': typeof AuthNestingLayoutTest2Route
+  '/nesting/layout': typeof AuthNestingNestingLayoutRoute
+  '/nesting/layout2': typeof AuthNestingNestingLayout2RouteWithChildren
   '/about/$value/create': typeof AuthAboutValueCreateRoute
   '/about/name/$name': typeof AuthAboutNameNameRoute
+  '/form/edit/$id': typeof AuthFormEditIdRoute
+  '/nesting': typeof AuthNestingNestingIndexRoute
   '/about/$value': typeof AuthAboutValueIndexRoute
   '/about/name': typeof AuthAboutNameIndexRoute
   '/test3/$id': typeof AuthNestingLayoutTest3IdRoute
+  '/nesting/layout2/layout': typeof AuthNestingNestingLayout2LayoutRoute
 }
 
 export interface FileRoutesById {
@@ -569,7 +672,6 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/login': typeof LoginRoute
   '/_auth/_nesting': typeof AuthNestingRouteWithChildren
-  '/_auth/form': typeof AuthFormRoute
   '/_auth/icon': typeof AuthIconRoute
   '/_auth/page': typeof AuthPageRoute
   '/_auth/page2': typeof AuthPage2Route
@@ -581,6 +683,7 @@ export interface FileRoutesById {
   '/_auth/_nesting/_layout': typeof AuthNestingLayoutRouteWithChildren
   '/_auth/_nesting/layout-test': typeof AuthNestingLayoutTestRoute
   '/_auth/about/$id': typeof AuthAboutIdRoute
+  '/_auth/form/add': typeof AuthFormAddRoute
   '/_auth/user/$id': typeof AuthUserIdRoute
   '/_auth/user/pager': typeof AuthUserPagerRoute
   '/_auth/about/': typeof AuthAboutIndexRoute
@@ -588,11 +691,16 @@ export interface FileRoutesById {
   '/_auth/table/': typeof AuthTableIndexRoute
   '/_auth/user/': typeof AuthUserIndexLazyRoute
   '/_auth/_nesting/_layout/test2': typeof AuthNestingLayoutTest2Route
+  '/_auth/_nesting/nesting/layout': typeof AuthNestingNestingLayoutRoute
+  '/_auth/_nesting/nesting/layout2': typeof AuthNestingNestingLayout2RouteWithChildren
   '/_auth/about/$value/create': typeof AuthAboutValueCreateRoute
   '/_auth/about/name/$name': typeof AuthAboutNameNameRoute
+  '/_auth/form/edit/$id': typeof AuthFormEditIdRoute
+  '/_auth/_nesting/nesting/': typeof AuthNestingNestingIndexRoute
   '/_auth/about/$value/': typeof AuthAboutValueIndexRoute
   '/_auth/about/name/': typeof AuthAboutNameIndexRoute
   '/_auth/_nesting/_layout/test3/$id': typeof AuthNestingLayoutTest3IdRoute
+  '/_auth/_nesting/nesting/layout2/layout': typeof AuthNestingNestingLayout2LayoutRoute
 }
 
 export interface FileRouteTypes {
@@ -601,7 +709,6 @@ export interface FileRouteTypes {
     | '/$page'
     | ''
     | '/login'
-    | '/form'
     | '/icon'
     | '/page'
     | '/page2'
@@ -612,6 +719,7 @@ export interface FileRouteTypes {
     | '/group3'
     | '/layout-test'
     | '/about/$id'
+    | '/form/add'
     | '/user/$id'
     | '/user/pager'
     | '/about'
@@ -619,17 +727,21 @@ export interface FileRouteTypes {
     | '/table'
     | '/user/'
     | '/test2'
+    | '/nesting/layout'
+    | '/nesting/layout2'
     | '/about/$value/create'
     | '/about/name/$name'
+    | '/form/edit/$id'
+    | '/nesting'
     | '/about/$value'
     | '/about/name'
     | '/test3/$id'
+    | '/nesting/layout2/layout'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/$page'
     | '/login'
     | ''
-    | '/form'
     | '/icon'
     | '/page'
     | '/page2'
@@ -639,6 +751,7 @@ export interface FileRouteTypes {
     | '/group3'
     | '/layout-test'
     | '/about/$id'
+    | '/form/add'
     | '/user/$id'
     | '/user/pager'
     | '/about'
@@ -646,18 +759,22 @@ export interface FileRouteTypes {
     | '/table'
     | '/user'
     | '/test2'
+    | '/nesting/layout'
+    | '/nesting/layout2'
     | '/about/$value/create'
     | '/about/name/$name'
+    | '/form/edit/$id'
+    | '/nesting'
     | '/about/$value'
     | '/about/name'
     | '/test3/$id'
+    | '/nesting/layout2/layout'
   id:
     | '__root__'
     | '/$page'
     | '/_auth'
     | '/login'
     | '/_auth/_nesting'
-    | '/_auth/form'
     | '/_auth/icon'
     | '/_auth/page'
     | '/_auth/page2'
@@ -669,6 +786,7 @@ export interface FileRouteTypes {
     | '/_auth/_nesting/_layout'
     | '/_auth/_nesting/layout-test'
     | '/_auth/about/$id'
+    | '/_auth/form/add'
     | '/_auth/user/$id'
     | '/_auth/user/pager'
     | '/_auth/about/'
@@ -676,11 +794,16 @@ export interface FileRouteTypes {
     | '/_auth/table/'
     | '/_auth/user/'
     | '/_auth/_nesting/_layout/test2'
+    | '/_auth/_nesting/nesting/layout'
+    | '/_auth/_nesting/nesting/layout2'
     | '/_auth/about/$value/create'
     | '/_auth/about/name/$name'
+    | '/_auth/form/edit/$id'
+    | '/_auth/_nesting/nesting/'
     | '/_auth/about/$value/'
     | '/_auth/about/name/'
     | '/_auth/_nesting/_layout/test3/$id'
+    | '/_auth/_nesting/nesting/layout2/layout'
   fileRoutesById: FileRoutesById
 }
 
@@ -718,7 +841,6 @@ export const routeTree = rootRoute
       "filePath": "_auth.tsx",
       "children": [
         "/_auth/_nesting",
-        "/_auth/form",
         "/_auth/icon",
         "/_auth/page",
         "/_auth/page2",
@@ -728,11 +850,13 @@ export const routeTree = rootRoute
         "/_auth/(group)/group2",
         "/_auth/(group)/group3",
         "/_auth/about/$id",
+        "/_auth/form/add",
         "/_auth/about/",
         "/_auth/jotai/",
         "/_auth/table/",
         "/_auth/about/$value/create",
         "/_auth/about/name/$name",
+        "/_auth/form/edit/$id",
         "/_auth/about/$value/",
         "/_auth/about/name/"
       ]
@@ -745,12 +869,11 @@ export const routeTree = rootRoute
       "parent": "/_auth",
       "children": [
         "/_auth/_nesting/_layout",
-        "/_auth/_nesting/layout-test"
+        "/_auth/_nesting/layout-test",
+        "/_auth/_nesting/nesting/layout",
+        "/_auth/_nesting/nesting/layout2",
+        "/_auth/_nesting/nesting/"
       ]
-    },
-    "/_auth/form": {
-      "filePath": "_auth/form.tsx",
-      "parent": "/_auth"
     },
     "/_auth/icon": {
       "filePath": "_auth/icon.tsx",
@@ -805,6 +928,10 @@ export const routeTree = rootRoute
       "filePath": "_auth/about/$id.tsx",
       "parent": "/_auth"
     },
+    "/_auth/form/add": {
+      "filePath": "_auth/form/add.tsx",
+      "parent": "/_auth"
+    },
     "/_auth/user/$id": {
       "filePath": "_auth/user/$id.tsx",
       "parent": "/_auth/user"
@@ -833,6 +960,17 @@ export const routeTree = rootRoute
       "filePath": "_auth/_nesting/_layout/test2.tsx",
       "parent": "/_auth/_nesting/_layout"
     },
+    "/_auth/_nesting/nesting/layout": {
+      "filePath": "_auth/_nesting/nesting/layout.tsx",
+      "parent": "/_auth/_nesting"
+    },
+    "/_auth/_nesting/nesting/layout2": {
+      "filePath": "_auth/_nesting/nesting/layout2.tsx",
+      "parent": "/_auth/_nesting",
+      "children": [
+        "/_auth/_nesting/nesting/layout2/layout"
+      ]
+    },
     "/_auth/about/$value/create": {
       "filePath": "_auth/about/$value/create.tsx",
       "parent": "/_auth"
@@ -840,6 +978,14 @@ export const routeTree = rootRoute
     "/_auth/about/name/$name": {
       "filePath": "_auth/about/name/$name.tsx",
       "parent": "/_auth"
+    },
+    "/_auth/form/edit/$id": {
+      "filePath": "_auth/form/edit.$id.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/_nesting/nesting/": {
+      "filePath": "_auth/_nesting/nesting/index.tsx",
+      "parent": "/_auth/_nesting"
     },
     "/_auth/about/$value/": {
       "filePath": "_auth/about/$value/index.tsx",
@@ -852,6 +998,10 @@ export const routeTree = rootRoute
     "/_auth/_nesting/_layout/test3/$id": {
       "filePath": "_auth/_nesting/_layout/test3.$id.tsx",
       "parent": "/_auth/_nesting/_layout"
+    },
+    "/_auth/_nesting/nesting/layout2/layout": {
+      "filePath": "_auth/_nesting/nesting/layout2/layout.tsx",
+      "parent": "/_auth/_nesting/nesting/layout2"
     }
   }
 }
