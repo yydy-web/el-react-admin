@@ -92,5 +92,8 @@
     "enableCodeCompletionPro": true
   },
   "marscode.enableInlineCommand": true,
-  "marscode.chatLanguage": "cn"
+  "marscode.chatLanguage": "cn",
+  "i18n-ally.localesPaths": [
+    "src/setup/i18n"
+  ]
 }
