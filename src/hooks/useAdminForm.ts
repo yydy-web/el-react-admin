@@ -7,8 +7,7 @@ import { useEffect } from 'react'
 
 export interface IUseAdminFormOptions<T extends Record<string, any>> {
   mutationKey: Parameters<typeof useMutation>[0]['mutationKey']
-  action: (data: T) => Promise<unknown>
-  putAction?: (data: T) => Promise<unknown>
+  mutationFn: (data: T) => Promise<unknown>
   initValue?: Partial<T>
   validateSchema?: ZodSchema<Record<string, any>>
   carray?: number
@@ -26,15 +25,9 @@ export function useAdminForm<T extends Record<string, any>>(options: IUseAdminFo
       : undefined,
   })
 
-  const addUserAction = useMutation({
+  const formAction = useMutation({
     mutationKey: [options.mutationKey, 'form', isEmpty(options.carray) ? 'save' : 'put'],
-    mutationFn: async (values: T) => {
-      if (options.putAction && options.carray) {
-        options.putAction(values)
-        return
-      }
-      options.action(values)
-    },
+    mutationFn: options.mutationFn,
   })
 
   const query = useQuery(options.queryOptions
@@ -55,13 +48,13 @@ export function useAdminForm<T extends Record<string, any>>(options: IUseAdminFo
 
   async function handleSubmitAction(values: T) {
     await form.validate()
-    await addUserAction.mutateAsync(values)
+    await formAction.mutateAsync(values)
   }
 
   return {
     query,
     form,
-    isLoading: addUserAction.isPending,
+    isLoading: formAction.isPending,
     handleSubmitAction,
   }
 }

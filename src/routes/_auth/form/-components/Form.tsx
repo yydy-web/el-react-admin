@@ -9,8 +9,11 @@ interface IUserFormProps {
 export function UserForm({ userId }: IUserFormProps) {
   const { form, isLoading, handleSubmitAction, query } = useAdminForm({
     mutationKey: ['user'],
-    action: addUser,
-    putAction: putUser,
+    mutationFn: async (values) => {
+      return userId
+        ? putUser(values)
+        : addUser(values)
+    },
     validateSchema: userEntitySchema,
     carray: userId,
     queryOptions: userQueryOptions,

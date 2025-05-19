@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { userQueryOptions } from '~/api'
 
 export const Route = createFileRoute('/_auth/user/$id')({
-  component: RouteComponent,
+  component: RouteComponent
 })
 
 function RouteComponent() {
@@ -18,7 +18,7 @@ function RouteComponent() {
     <div className=" whitespace-pre overflow-hidden text-ellipsis w-full">
       data：
       {' '}
-      { JSON.stringify(data) }
+      {JSON.stringify(data)}
     </div>
   )
 }

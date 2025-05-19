@@ -1,9 +1,10 @@
 import type { MRT_ColumnDef } from 'mantine-react-table'
 import type { IUserEntity } from '~/api'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import {
   MantineReactTable,
 } from 'mantine-react-table'
+import { Button } from '@mantine/core'
 import { useMemo } from 'react'
 import { useQueryPager2Options } from '~/api'
 import { useAdminTable } from '~/hooks'
@@ -13,6 +14,7 @@ export const Route = createFileRoute('/_auth/table/')({
 })
 
 function RouteComponent() {
+  const navigate = useNavigate()
   const columns = useMemo<MRT_ColumnDef<IUserEntity>[]>(
     () => [
       {
@@ -35,6 +37,19 @@ function RouteComponent() {
         accessorKey: 'gender',
         header: 'gender',
       },
+      {
+        accessorKey: 'action',
+        header: 'action',
+        Cell: ({ row }) => {
+          return (
+            <div>
+              <Button onClick={() => {
+                navigate({ to: '/form/edit/$id', params: { id: `${row.original.id}` } })
+              }}>Edit</Button>
+            </div>
+          )
+        }
+      }
     ],
     [],
   )
