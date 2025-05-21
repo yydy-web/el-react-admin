@@ -95,5 +95,10 @@
   "marscode.chatLanguage": "cn",
   "i18n-ally.localesPaths": [
     "src/setup/i18n"
+  ],
+  "cSpell.words": [
+    "rsbuild",
+    "rspack",
+    "shiki"
   ]
 }

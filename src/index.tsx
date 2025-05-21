@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { scan } from 'react-scan'
 import App from './App'
 import { queryClient } from './store'
+import { Notifications } from '@mantine/notifications';
 import './setup'
 import './style/index.css'
 
@@ -22,6 +23,7 @@ function bootstrap() {
       <>
         <QueryClientProvider client={queryClient}>
           <MantineProvider>
+            <Notifications />
             <App />
           </MantineProvider>
         </QueryClientProvider>

@@ -1,12 +1,23 @@
 import { defineConfig } from '@rsbuild/core'
 import { pluginReact } from '@rsbuild/plugin-react'
 import { TanStackRouterRspack } from '@tanstack/router-plugin/rspack'
+import { pluginMdx } from '@rsbuild/plugin-mdx'
+import { remarkCodeSrc } from './plugins/remark'
 import { version } from './package.json' with { type: 'json' }
 
 const APP_TITLE = 'template rs'
 
 export default defineConfig({
-  plugins: [pluginReact()],
+  plugins: [
+    pluginReact(),
+    pluginMdx({
+      mdxLoaderOptions: {
+        remarkPlugins: [
+          [remarkCodeSrc, { basePath: '' }],
+        ],
+      },
+    })
+  ],
   source: {
     define: {
       APP_TITLE: JSON.stringify(APP_TITLE),

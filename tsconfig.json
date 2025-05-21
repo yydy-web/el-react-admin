@@ -2,14 +2,21 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "paths": {
-      "~/*": ["./src/*"],
-      "~~/*": ["./*"]
+      "~/*": [
+        "./src/*"
+      ],
+      "~~/*": [
+        "./*"
+      ]
     },
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
@@ -18,5 +25,12 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["src", "rsbuild.config.ts", "scripts", "custom.json"]
+  "include": [
+    "src",
+    "rsbuild.config.ts",
+    "scripts",
+    "custom.json",
+    "playwright.config.ts",
+    "plugins"
+  ]
 }
