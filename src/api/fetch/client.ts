@@ -1,4 +1,8 @@
-import type { ZodTypeAny } from 'zod'
+import type { ZodType } from 'zod'
+import { fetchAuthIntercept, fetchResponseIntercepet } from '~/setup/fetch.setup'
+import { patchFetch } from './patch'
+
+const request = patchFetch([fetchAuthIntercept], fetchResponseIntercepet, 'https://dummyjson.com')
 
 type RequestParams = Record<string, any>
 type RequestBody = Record<string, any>
@@ -10,16 +14,16 @@ export type FetchMethods = FetchBodyMethod & FetchParamsMethod
 
 async function createParamsFetch<T>(
   url: string,
-  params: (RequestParams | ZodTypeAny) = {},
-  schema?: ZodTypeAny,
+  params: (RequestParams) = {},
+  schema?: ZodType,
   method: FetchParamsMethod = 'get',
 ) {
   if (typeof params.safeParse === 'function') {
-    schema = params as ZodTypeAny
+    schema = params as ZodType
     params = {}
   }
 
-  const res = await fetch(
+  const res = await request(
     Object.keys(params).length > 0
       ? `${url}?${Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&')}`
       : url,
@@ -43,10 +47,10 @@ async function createParamsFetch<T>(
 async function createBodyFetch<T>(
   url: string,
   body: RequestBody = {},
-  schema?: ZodTypeAny,
+  schema?: ZodType,
   method: FetchBodyMethod = 'post',
 ) {
-  const res = await fetch(url, {
+  const res = await request(url, {
     method,
     headers: {
       'content-type': 'application/json',
@@ -67,16 +71,16 @@ async function createBodyFetch<T>(
 }
 
 export const fetchClient = {
-  async get<T>(url: string, params: (RequestParams | ZodTypeAny) = {}, schema?: ZodTypeAny) {
+  async get<T>(url: string, params: (RequestParams | ZodType) = {}, schema?: ZodType) {
     return createParamsFetch<T>(url, params, schema, 'get')
   },
-  async post<T>(url: string, body: RequestBody = {}, schema?: ZodTypeAny) {
+  async post<T>(url: string, body: RequestBody = {}, schema?: ZodType) {
     return createBodyFetch<T>(url, body, schema, 'post')
   },
-  async put<T>(url: string, body: RequestBody = {}, schema?: ZodTypeAny) {
+  async put<T>(url: string, body: RequestBody = {}, schema?: ZodType) {
     return createBodyFetch<T>(url, body, schema, 'put')
   },
-  async delete<T>(url: string, params: (RequestParams | ZodTypeAny) = {}, schema?: ZodTypeAny) {
+  async delete<T>(url: string, params: (RequestParams | ZodType) = {}, schema?: ZodType) {
     return createParamsFetch<T>(url, params, schema, 'delete')
   },
 }

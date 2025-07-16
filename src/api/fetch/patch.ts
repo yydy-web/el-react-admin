@@ -10,7 +10,7 @@ export function patchFetch(
 ) {
   const { fetch: originFetch } = window
 
-  window.fetch = async (...args) => {
+  return async (...args: Parameters<typeof window.fetch>) => {
     const [resource, config = {}] = args
 
     if (import.meta.env.DEV) {
