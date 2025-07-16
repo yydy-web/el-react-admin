@@ -1,10 +1,10 @@
 import type { LoginParams } from '~/api'
 import { Button, Center, TextInput } from '@mantine/core'
-import { useForm, zodResolver } from '@mantine/form'
-import { useMutation } from '@tanstack/react-query'
+import { useForm } from '@mantine/form'
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
+import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { z } from 'zod'
-import { loginParamsSchema } from '~/api'
+import { loginParamsSchema, useLoginMutation } from '~/api'
 import { useAuthStore } from '~/store'
 
 export const Route = createFileRoute('/login')({
@@ -21,25 +21,23 @@ export const Route = createFileRoute('/login')({
 })
 
 function RouteComponent() {
-  const auth = useAuthStore()
   const router = useRouter()
   const navigate = Route.useNavigate()
   const search = Route.useSearch()
+  const { loginUser } = useAuthStore()
   const form = useForm<LoginParams>({
     initialValues: {
-      username: 'emilys',
-      password: 'emilyspass',
+      username: 'admin',
+      password: '123456',
     },
-    validate: zodResolver(loginParamsSchema),
+    validate: zod4Resolver(loginParamsSchema),
   })
 
-  const action = useMutation({
-    mutationKey: ['login'],
-    mutationFn: (params: LoginParams) => auth.loginUser({ ...params, username: 'emilys', password: 'emilyspass' }),
-  })
+  const { mutateAsync, isPending } = useLoginMutation()
 
   async function handleSubmitLogin({ username, password }: LoginParams) {
-    await action.mutateAsync({ username, password })
+    const res = await mutateAsync({ username, password })
+    loginUser(res)
     await router.invalidate()
     await navigate({ to: search.redirect || '/page' })
   }
@@ -63,8 +61,7 @@ function RouteComponent() {
           key={form.key('password')}
           {...form.getInputProps('password')}
         />
-
-        <Button type="submit" mt="md" fullWidth loading={action.isPending}>登录</Button>
+        <Button type="submit" mt="md" fullWidth loading={isPending}>登录</Button>
       </form>
     </Center>
   )

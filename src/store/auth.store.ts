@@ -1,9 +1,8 @@
-import type { LoginParams, LoginRes } from '~/api'
-import { omit } from 'lodash-es'
+import type { ILoginRes, LoginRes } from '~/api'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { loginUser, userMeQueryOptions } from '~/api'
+import { userMeQueryOptions } from '~/api'
 import { queryClient } from '.'
 import { useCacheStore } from './cache.store'
 
@@ -12,7 +11,7 @@ interface States {
 }
 
 interface Actions {
-  loginUser: (params: LoginParams) => Promise<void>
+  loginUser: (res: ILoginRes) => void
   infoUser: () => Promise<void>
   logoutUser: () => void
   setUser: (info: Required<States>['userInfo']) => void
@@ -28,13 +27,9 @@ export const useAuthStore = create<States & Actions>()(
   devtools(
     immer(set => ({
       ...initAuthStore(),
-      loginUser: async (params: LoginParams) => {
-        const res = await loginUser(params)
+      loginUser: async (res: ILoginRes) => {
         const cacheStore = useCacheStore.getState()
-        set((state) => {
-          state.userInfo = omit(res, ['accessToken'])
-          cacheStore.setToken(res.accessToken)
-        })
+        cacheStore.setToken(res.token)
       },
       async infoUser() {
         const data = await queryClient.ensureQueryData(userMeQueryOptions())

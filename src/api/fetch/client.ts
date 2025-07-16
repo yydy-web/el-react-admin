@@ -2,7 +2,7 @@ import type { ZodType } from 'zod'
 import { fetchAuthIntercept, fetchResponseIntercepet } from '~/setup/fetch.setup'
 import { patchFetch } from './patch'
 
-const request = patchFetch([fetchAuthIntercept], fetchResponseIntercepet, 'https://dummyjson.com')
+const request = patchFetch([fetchAuthIntercept], fetchResponseIntercepet, '/api')
 
 type RequestParams = Record<string, any>
 type RequestBody = Record<string, any>

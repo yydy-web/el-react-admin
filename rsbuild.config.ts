@@ -1,9 +1,9 @@
 import { defineConfig } from '@rsbuild/core'
+import { pluginMdx } from '@rsbuild/plugin-mdx'
 import { pluginReact } from '@rsbuild/plugin-react'
 import { TanStackRouterRspack } from '@tanstack/router-plugin/rspack'
-import { pluginMdx } from '@rsbuild/plugin-mdx'
-import { remarkCodeSrc } from './plugins/remark'
 import { version } from './package.json' with { type: 'json' }
+import { remarkCodeSrc } from './plugins/remark'
 
 const APP_TITLE = 'template rs'
 
@@ -16,8 +16,17 @@ export default defineConfig({
           [remarkCodeSrc, { basePath: '' }],
         ],
       },
-    })
+    }),
   ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://192.168.2.91:8000',
+        changeOrigin: true,
+        pathRewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   source: {
     define: {
       APP_TITLE: JSON.stringify(APP_TITLE),
