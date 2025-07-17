@@ -59,6 +59,7 @@ function NestsNavLink({ config: item }: { config: IAppConfig['routers'][0] }) {
 
 function RouteComponent() {
   const router = useRouter()
+  const navigate = Route.useNavigate()
   const { userInfo, logoutUser } = useAuthStore()
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true)
@@ -67,6 +68,7 @@ function RouteComponent() {
   async function handleLogoutUser() {
     logoutUser()
     await router.invalidate()
+    navigate({ to: '/login' })
   }
 
   function handleToggleTheme() {
@@ -88,7 +90,6 @@ function RouteComponent() {
           <Group>
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
             <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" />
-            logo
           </Group>
           <Group>
             <ActionIcon variant="default" size={32} onClick={handleToggleTheme}>
@@ -96,7 +97,7 @@ function RouteComponent() {
             </ActionIcon>
             <Menu shadow="md" width={200}>
               <Menu.Target>
-                <Avatar src={userInfo?.image} alt={userInfo?.firstName} />
+                <Avatar src={userInfo?.avatarPath} alt={userInfo?.avatarName} />
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Label>操作</Menu.Label>

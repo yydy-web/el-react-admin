@@ -1,10 +1,10 @@
-import type { LoginParams } from '~/api'
+import type { ILoginForm } from '~/api'
 import { Button, Center, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { z } from 'zod'
-import { loginParamsSchema, useLoginMutation } from '~/api'
+import { LoginFormSchema, useLoginMutation } from '~/api'
 import { useAuthStore } from '~/store'
 
 export const Route = createFileRoute('/login')({
@@ -25,17 +25,17 @@ function RouteComponent() {
   const navigate = Route.useNavigate()
   const search = Route.useSearch()
   const { loginUser } = useAuthStore()
-  const form = useForm<LoginParams>({
+  const form = useForm<ILoginForm>({
     initialValues: {
       username: 'admin',
       password: '123456',
     },
-    validate: zod4Resolver(loginParamsSchema),
+    validate: zod4Resolver(LoginFormSchema),
   })
 
   const { mutateAsync, isPending } = useLoginMutation()
 
-  async function handleSubmitLogin({ username, password }: LoginParams) {
+  async function handleSubmitLogin({ username, password }: ILoginForm) {
     const res = await mutateAsync({ username, password })
     loginUser(res)
     await router.invalidate()

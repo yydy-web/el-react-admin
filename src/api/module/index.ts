@@ -1,4 +1,5 @@
 export * from './auth'
 export * from './auth.type'
-export * from './user'
+export * from './menu'
+export * from './menu.type'
 export * from './user.type'

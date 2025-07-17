@@ -1,5 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query'
-import type { LoginRes } from '~/api'
+import type { ILoginRes } from '~/api'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
@@ -7,7 +7,7 @@ import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 interface MyRouterContext {
   queryClient: QueryClient
   cookie?: string
-  user?: Omit<LoginRes, 'accessToken'>
+  user?: ILoginRes['userInfo']
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
